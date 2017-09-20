@@ -29,8 +29,14 @@ class Tablero:
 			self.tablero.append(columnas)
 
 	def printTablero(self):
+
 		for i in range(self.filas):
-			print(str(self.tablero[i]))
+			fila = ""
+			for j in range(self.columnas):
+				if (self.tablero[i][j] == -1):
+					fila += " [  ] "
+			print(fila)
+
 
 
 class Jugador:
@@ -52,8 +58,9 @@ if __name__ == '__main__':
 	print("hello world")
 
 	n = input("Ingrese el n \n")
-	filas = (2*n-2)
-	columnas = (2*n-1)
+	n = int(n)
+	filas = (2*n)-2
+	columnas = (2*n)-1
 	tablero = Tablero(filas,columnas)
 	
 
