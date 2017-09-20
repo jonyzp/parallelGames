@@ -1,3 +1,4 @@
+import argparse
 
 class Tablero:
 	"""Esta clase crea el tablero"""
@@ -49,12 +50,19 @@ class Jugador:
 		return self.tipodejugador
 
 if __name__ == '__main__':
-	print("hello world")
+	print("This is ** N in Line ** .")
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--nInLine', type=int, help="Select the number of aligned chips to win.", default=3)
+	parser.add_argument('--nPlayers', type=int, help="Number of human players.", default=2)
+	parser.add_argument('--nComputers', type=int, help="Number of virtual players.", default=1)
+	
+	args = parser.parse_args()
 
-	n = input("Ingrese el n \n")
+	n = int(args.nInLine)
+
 	filas = (2*n-2)
 	columnas = (2*n-1)
 	tablero = Tablero(filas,columnas)
-	
+
 
 	#jugador = Jugador()
