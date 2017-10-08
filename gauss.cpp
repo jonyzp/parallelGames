@@ -4,10 +4,14 @@
 #include<stdio.h>
 #include<curses.h>
 #include<stdlib.h>
-int i,j,k,n;
+#include<fstream>
+using namespace std;
+int i,j,k,n,row,column;
 double m[20][20],aux;
 
 int main(){
+  
+/*
   std::cout<<"        <<Gaussian Method>>         ";
   std::cout<<"\n Square matrix of order N= ";
   std::cin>>n;
@@ -20,6 +24,17 @@ int main(){
     std::cout<<"\n Independent term of X"<<i<<" ";
     std::cin>>m[i][n+1];
   }
+*/
+ifstream f("matrix.txt");
+f >> n;
+
+
+for (i = 1; i <= n; i++){
+  for (j = 1; j <= n; j++){
+      f >> m[i][j];
+  }
+  f >> m[i][n+1];
+}  
 
 for(i=1;i<=n;i++){
   if(m[i][i]!=0){
