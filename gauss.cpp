@@ -1,4 +1,4 @@
-//METODO DE GAUSS
+//GAUSS METHOD
 
 #include<iostream>
 #include<stdio.h>
