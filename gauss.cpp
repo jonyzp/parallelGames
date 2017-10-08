@@ -7,7 +7,7 @@
 #include<fstream>
 using namespace std;
 int i,j,k,n,row,column;
-double m[20][20],aux;
+double m[10001][10001],aux;
 
 int main(){
   
@@ -29,6 +29,7 @@ ifstream f("matrix.txt");
 f >> n;
 
 
+
 for (i = 1; i <= n; i++){
   for (j = 1; j <= n; j++){
       f >> m[i][j];
@@ -36,6 +37,7 @@ for (i = 1; i <= n; i++){
   f >> m[i][n+1];
 }  
 
+//#pragma omp parallel for private( k,i,j,aux)
 for(i=1;i<=n;i++){
   if(m[i][i]!=0){
     aux=1/m[i][i];

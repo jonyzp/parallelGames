@@ -31,7 +31,7 @@ def matrixGenerator(size,rango):
         
 def main():
     rango=9
-    size=10
+    size=2000
     file.write(str(size)+"\n")
     matrixGenerator(size,rango)
 

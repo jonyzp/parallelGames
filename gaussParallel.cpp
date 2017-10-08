@@ -8,7 +8,7 @@
 
 using namespace std;
 int i,j,k,n,row,column;
-double m[20][20],aux;
+double m[10001][10001],aux;
 
 int main(){
  
@@ -22,13 +22,14 @@ for (i = 1; i <= n; i++){
   f >> m[i][n+1];
 }  
 
+
+#pragma omp parallel for private( k,i,j,aux);
 for(i=1;i<=n;i++){
   if(m[i][i]!=0){
     aux=1/m[i][i];
     for(j=1;j<=n+1;j++){
       m[i][j]=aux*m[i][j];
     }
-
     for(j=1;j<=n;j++){
       if(j!=i){
         aux=-m[j][i];
