@@ -37,7 +37,7 @@ int main() {
     system ("clear");
     ifstream label1 ("matrix.txt"); //Open the file with the matrix
 
-    // Definición de variables y asignación dinámica de memoria    
+    // Variables definition 
     int i, j, n;
         label1 >> n;
     double **a, determ = 0;
@@ -48,10 +48,10 @@ int main() {
         a[j] = new double [n];
     }    
 
-    // Lectura de la matriz (label1 apunta a datos.in en el subdirectorio datos del home de usuario)
+    //reading the matriz from label1 that is a pointer from matrix.txt
     for(i=0; i<n; i++){
         for(j=0; j<n; j++){
-                    label1 >> a[i][j];
+            label1 >> a[i][j];
         }
     }
 
