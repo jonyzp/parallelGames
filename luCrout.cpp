@@ -1,26 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-double **L, **U, *B, *Z, *X;
-//, **LU,*y;
-
-int initialMatrixProcessing(string origin){
-    ifstream read;
-    stringstream ss;
-    string firstLine;
-    int cont;
-    long long var;
-
-    read.open(origin.c_str());
-
-    getline(read, firstLine);
-    ss.str(firstLine);
-    
-    cont = 0;
-    while (ss >> var) cont++;
-    read.close();
-    return cont-1;
-}
+double **L, **U, *B, *Z, *X, **A;
 
 void readMatrix( int size,string origin){
 	B = new double[size];
@@ -30,32 +11,22 @@ void readMatrix( int size,string origin){
         U[i] = new double [size];
     }
 
-    for (int i = 0; i < size; ++i){
-        cout<<U[i];
-    }
-
     L = new double*[size];
     
     for (int i = 0; i < size; ++i){
 		L[i] = new double[size];
     }
 
-    
-    for (int i = 0; i < size; ++i){
-        cout<<L[i];
-    }
-    
     ifstream read;
     read.open(origin.c_str());
-    
+    read >> B[0];
     for (int i = 0; i < size; ++i){
         for (int j = 0; j < size; ++j){
             read >> U[i][j];
         }
         read >> B[i];
     }
-    cout << B;
-
+    
     read.close();
 }
 
@@ -72,26 +43,9 @@ void gaussianElimination(int n){
 		}
 	}
 }
-/*
-void solveCrout(int d){
-    //double y[d];
-    y = new double[d];
-    for(int i=0;i<d;++i){
-       double sum=0.;
-       for(int k=0;k<i;++k){
-           sum+=LU[i*d+k]*y[k];
-       }
-       y[i]=(B[i]-sum)/LU[i*d+i];
-    }
-    for(int i=d-1;i>=0;--i){
-       double sum=0.;
-       for(int k=i+1;k<d;++k){
-           sum+=LU[i*d+k]*X[k];
-       }
-       X[i]=(y[i]-sum); // not dividing by diagonals
-    }
-}
-*/
+
+
+
 void progressiveC(int n){
 	Z = new double[n];
 	for(int i=0; i<n; i++){
@@ -120,31 +74,31 @@ void printSolution(string solutionFile, int size){
     for (int i = 0; i <size; ++i){
         write << X[i] << endl;
     }
+    for (int i = 0; i <size; ++i){
+        for (int j = 0; j <size; ++j){
+            cout << A[i][j] <<" " ;
+        }
+        cout << endl;
+    }
     write.close();
 }
 
 int main(){
 	string originalFile,readingName,writingName,solutionFile;
     long long matrixSize;
-    //cout << "where is the original matrix at?" << endl;
-    //cin >> originalFile;
     originalFile="matrix.txt";
-
-    //cout << "where do you want the solution to be?" << endl;
-    //cin >> solutionFile;
-    solutionFile="solucion.txt";
-    matrixSize = initialMatrixProcessing(originalFile);    
-    /*
+    solutionFile="solution.txt";
     ifstream f("matrix.txt");
     f >> matrixSize; 
-    for (int i = 1; i <= matrixSize; i++){
-        for (int j = 1; j <= matrixSize; j++){
-            f >> LU[i][j];
-        }
-        f >> LU[i][matrixSize+1];
-    }  
-    //cout << matrixSize;
-    //f.close();*/
+    A = new double*[matrixSize];    
+    for (int i = 0; i < matrixSize; ++i){
+		A[i] = new double[matrixSize];
+    }
+    for (int i = 0; i < matrixSize; ++i){
+        for (int j = 0; j <= matrixSize; ++j){
+            f >> A[i][j];
+        }       
+    } 
     readMatrix(matrixSize,originalFile);
     gaussianElimination(matrixSize);
     //solveCrout(matrixSize);

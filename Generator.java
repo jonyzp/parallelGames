@@ -55,7 +55,7 @@ public class Generator {
         Scanner in = new Scanner(System.in);
         g=new Generator();
         int range = 2;
-        int size = 20;
+        int size = 1000;
         g.matrixGenerator(size,range);
 
     }
