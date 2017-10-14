@@ -1,4 +1,4 @@
-//GAUSS METHOD
+//METODO DE GAUSS
 
 #include<iostream>
 #include<stdio.h>
@@ -6,64 +6,75 @@
 #include<stdlib.h>
 #include<fstream>
 
-using namespace std;
-int i,j,k,n,row,column;
-const int tam=10000;
-double m[tam][tam],aux, X[tam];
+int i,j,k,n;
+double m[20][20],aux;
 
-int main(){
+int main()
+{
 
+/**cout<<"        <<<<Metodo de Gauss >>>>         ";
+cout<<"\n Matriz cuadrada de orden N= ";
+cin>>n;
+cout<<"\n Digite los elementos de la matriz en la posicion ";
+for(i=1;i<=n;i++)
+{
+for(j=1;j<=n;j++)
+{
+cout<<"\n M=["<<i<<","<<j<<"]= ";
+cin>>m[i][j];
+}
+cout<<"\n Termino independiente de X"<<i<<" ";
+cin>>m[i][n+1];
 
-time_t start = time(0);
+}*/
+std::ifstream f("matrix.txt");
+  f >> n;
 
-for(k=0; k<n; ++k){
-    for(i=k+1; i<n; ++i){
-      aux = m[i][k]/m[k][k];
-      m[i][k] =0;
-      for(j=k+1; j<=n; ++j){
-        m[i][j] = double(m[i][j] - aux*m[k][j]);
-      }
-    }
+for (i = 1; i <= n; i++){
+  for (j = 1; j <= n; j++){
+    f >> m[i][j];
   }
-
-for(int i=n-1; i>=0; --i){
-  double sum = 0;
-  for(int p=i+1; p<n; ++p){
-    sum += m[i][p]*X[p];
-  }
-  X[i]=(m[i][n]-sum)/m[i][i];
+  f >> m[i][n+1];
 }
 
-time_t end = time(0);
-double tim = difftime(end, start) * 1000.0;
-
-
-/*
-cout<<"The identity matrix is";
-cout<<"\n\n";
-for(i=0;i<n;i++){
-  for(j=0;j<n+1;j++){
-    cout<<m[i][j]<<"\t";
-  }
-  cout<<"\n\n";
-}
-
-
-cout<<"\n";
-
-cout<<"The identity matrix is";
-cout<<"\n\n";
 for(i=1;i<=n;i++){
-  for(j=1;j<=n;j++){
-    cout<<m[i][j]<<"\t";
-  }
-  cout<<"\n\n";
-}
-*/
-cout<<"The value of unknowns is : ";
-for(i=1;i<=n;i++){
-  cout<<"\nX "<<i<<" = "<<X[i]<<"\n";
+  if(m[i][i]!=0){
+    aux=1/m[i][i];
+for(j=1;j<=n+1;j++){
+  m[i][j]=aux*m[i][j];
 }
 
-cout << tim;
+for(j=1;j<=n;j++){
+if(j!=i)
+{
+aux=-m[j][i];
+for(k=1;k<=n+1;k++)
+{
+m[j][k]=m[j][k]+aux*m[i][k];
+}
+}
+}
+}
+}
+
+std::cout<<"\n";
+std::cout<<"la matriz identidad es";
+std::cout<<"\n\n";
+for(i=1;i<=n;i++)
+{
+for(j=1;j<=n;j++)
+{
+std::cout<<m[i][j]<<"\t";
+}
+std::cout<<"\n\n";
+}
+
+std::cout<<"El valor de las incognitas es : ";
+for(i=1;i<=n;i++)
+{
+
+std::cout<<"\nX"<<i<<" = "<<m[i][n+1]<<"\n";
+}
+getchar();
+return 1;
 }

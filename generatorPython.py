@@ -12,7 +12,7 @@ def randomGenerator(size,rango):
     sol.append(randVal)
     return sol
 
-def matrixGenerator(size,rango):    
+def matrixGenerator(size,rango):
     for i in range(size):
         actual = randomGenerator(size,rango)
         bVal=0
@@ -23,12 +23,12 @@ def matrixGenerator(size,rango):
             else:
                 printVal = actual[j]
             line+=str(printVal)+" "
-            
+
             bVal += (j+1) * printVal
         line=line + str(bVal)
         #print line
         file.write(line+"\n")
-        
+
 def main():
     rango=9
     size=2000
@@ -36,4 +36,3 @@ def main():
     matrixGenerator(size,rango)
 
 main()
- 
