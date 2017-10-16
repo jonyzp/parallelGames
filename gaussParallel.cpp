@@ -72,8 +72,5 @@ cout<<"The value of unknowns is : ";
 for(i=1;i<=n;i++){
   cout<<"\nX "<<i<<" = "<<X[i]<<"\n";
 }
-
-cout << tim;
-
-getchar();
+cout << "el tiempo que se tardo en encontrar la solucion fue: " << tim<<endl;
 }
