@@ -1,8 +1,8 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <sstream>
-#include <vector>
 #include <string>
+#include <vector>
 #include <cmath>
 
 using namespace std;
@@ -10,25 +10,7 @@ using namespace std;
 vector<double> xValues,xNewValues;
 double**matrix;
 
-int initialMatrixProcessing(string origin){
-    ifstream read;
-    stringstream ss;
-    string firstLine;
-    int cont;
-    long long var;
-
-    read.open(origin.c_str());
-
-    getline(read, firstLine);
-    ss.str(firstLine);
-    
-    cont = 0;
-    while (ss >> var) cont++;
-    read.close();
-    return cont-1;
-}
-
-int readMatrix(string origin){
+int initializeMatrix(string origin){
     ifstream read;
     read.open(origin.c_str());
     int size = 0;
@@ -46,7 +28,8 @@ int readMatrix(string origin){
     return size;
 }
 
-double jacobiIteration(int matrixSize){
+
+double newJacobi(int matrixSize){
     double suma, disp,var, aii;
     disp = 0;
     for (int i = 0; i < matrixSize;++i){
@@ -71,7 +54,7 @@ bool jacobi(long long matrixSize, double tol, long long niter){
 
     while (disp > tol && cont < niter){
         for (int i = 0; i < matrixSize; ++i)xValues[i] = xNewValues[i];
-        disp = jacobiIteration(matrixSize);
+        disp = newJacobi(matrixSize);
         cont++;
     }
 
@@ -80,9 +63,10 @@ bool jacobi(long long matrixSize, double tol, long long niter){
     return false;
 }
 
-void printSolution(string solutionFile){
+
+void writeSolution(string outputFile){
     ofstream write;
-    write.open(solutionFile.c_str(),ios::trunc);
+    write.open(outputFile.c_str(),ios::trunc);
     for (int i = 0; i < xValues.size();++i){
         write << xValues[i] << endl;
     }
@@ -91,15 +75,15 @@ void printSolution(string solutionFile){
 
 int main(){
     std::ios::sync_with_stdio(false);
-    string originalFile,readingName,writingName, solutionFile;
-    long long matrixSize, iterations;
+    string matrixInputFile, outputFile;
+    long long matrixSize, maxIterations;
     double tolerance;
-    bool res;
+    bool success;
 
-    originalFile = "matrix.txt";
-    solutionFile = "sol.txt";
+    matrixInputFile = "matrix.txt";
+    outputFile = "sol.txt";
 
-    matrixSize = readMatrix(originalFile);
+    matrixSize = initializeMatrix(matrixInputFile);
 
     xValues.assign(matrixSize, 0);
     xNewValues.assign(matrixSize, 0);
@@ -107,14 +91,14 @@ int main(){
     cout << "how much tolerance? example: 0.0001" << endl;
     cin >> tolerance;
     cout << "how many iterations? i.e: 100" << endl;
-    cin >> iterations;
+    cin >> maxIterations;
 
-    res = jacobi(matrixSize, tolerance, iterations);
+    success = jacobi(matrixSize, tolerance, maxIterations);
     
-    if (res)
-        printSolution(solutionFile);
+    if (success)
+        writeSolution(outputFile);
     else
-        cout << "could not reach the solutions in " << iterations << " iterations" << endl;
+        cout << "could not reach the solutions in " << maxIterations << " iterations" << endl;
         
     return 0;
 }
