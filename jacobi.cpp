@@ -88,7 +88,7 @@ int main(){
     xValues.assign(matrixSize, 0);
     xNewValues.assign(matrixSize, 0);
 
-    cout << "how much tolerance? example: 0.0001" << endl;
+    cout << "how much tolerance? for example if you have n=10, tolerance should be 0.01 and maxIters=10000" << endl;
     cin >> tolerance;
     cout << "how many iterations? i.e: 100" << endl;
     cin >> maxIterations;
