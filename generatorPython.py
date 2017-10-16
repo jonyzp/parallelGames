@@ -3,13 +3,13 @@ import random
 file= open("matrix.txt",'w')
 
 def randomGenerator(size,rango):
-    sum = 0
+    suma = 0
     sol=[]
     for i in range (size):
             randVal =random.randrange(rango)+1
-            sum+= randVal
+            suma+= randVal
             sol.append(randVal)
-    sol.append(randVal)
+    sol.append(suma)
     return sol
 
 def matrixGenerator(size,rango):    
@@ -31,7 +31,7 @@ def matrixGenerator(size,rango):
         
 def main():
     rango=9
-    size=2000
+    size=10
     file.write(str(size)+"\n")
     matrixGenerator(size,rango)
 
