@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
+#include <math.h>
 using namespace std;
 
-double **L, **U, *B, *Z, *X;
+double **L, **U, *B, *Z, *X, **A;
 
 void readMatrix( int size,string origin){
 	B = new double[size];
@@ -73,6 +74,12 @@ void printSolution(string solutionFile, int size){
     for (int i = 0; i <size; ++i){
         write << X[i] << endl;
     }
+    for (int i = 0; i <size; ++i){
+        for (int j = 0; j <size; ++j){
+            cout << A[i][j] <<" " ;
+        }
+        cout << endl;
+    }
     write.close();
 }
 
@@ -83,6 +90,15 @@ int main(){
     solutionFile="solution.txt";
     ifstream f("matrix.txt");
     f >> matrixSize; 
+    A = new double*[matrixSize];    
+    for (int i = 0; i < matrixSize; ++i){
+		A[i] = new double[matrixSize];
+    }
+    for (int i = 0; i < matrixSize; ++i){
+        for (int j = 0; j <= matrixSize; ++j){
+            f >> A[i][j];
+        }       
+    } 
     readMatrix(matrixSize,originalFile);
     gaussianElimination(matrixSize);
     //solveCrout(matrixSize);

@@ -12,7 +12,7 @@ const int tam=10001;
 double m[tam][tam],aux, X[tam];
 
 int main(){
- 
+
 ifstream f("matrix.txt");
 f >> n;
 
@@ -21,7 +21,7 @@ for (i = 0; i < n; i++){
       f >> m[i][j];
   }
   f >> m[i][n];
-}  
+}
 
 time_t start = time(0);
 #pragma omp parallel for private( k,i,j,aux)
