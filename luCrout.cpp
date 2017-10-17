@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <math.h>
 using namespace std;
 
 double **L, **U, *B, *Z, *X, **A;
@@ -6,11 +7,14 @@ double **L, **U, *B, *Z, *X, **A;
 void readMatrix( int size,string origin){
 	B = new double[size];
     U = new double *[size];
-    
+    A= new double *[size];
     for (int i = 0; i < size; ++i){
         U[i] = new double [size];
     }
 
+    for (int i = 0; i < size; ++i){
+        A[i] = new double [size];
+    }
     L = new double*[size];
     
     for (int i = 0; i < size; ++i){
@@ -22,7 +26,7 @@ void readMatrix( int size,string origin){
     read >> B[0];
     for (int i = 0; i < size; ++i){
         for (int j = 0; j < size; ++j){
-            read >> U[i][j];
+            read >> A[i][j];
         }
         read >> B[i];
     }
@@ -30,21 +34,35 @@ void readMatrix( int size,string origin){
     read.close();
 }
 
-void gaussianElimination(int n){
-	double multiplier;
-	for(int k=0; k<n; ++k){
-		L[k][k]=1;
-		for(int i=k+1; i<n; ++i){
-			multiplier = U[i][k]/U[k][k];
-			L[i][k]=multiplier;
-			for(int j=k; j<n; ++j){
-				U[i][j] = U[i][j] - multiplier*U[k][j];
-			}
-		}
-	}
+void crout(int n){
+    double suma1,suma2,suma3;
+    
+    for(int k=0;k<n;++k){
+        suma1=0;
+        for(int m=0;m<k-1;++m){
+            suma1+=L[k][m]*U[m][k];
+        }
+        L[k][k]=A[k][k]-suma1;
+        U[k][k]=1;
+
+        for(int i=k+1;i<n;++i){
+            suma2=0;
+            for(int p=0;p<k-1;++p){
+                suma2+=L[i][p]*U[p][k];
+            }
+            L[i][k]=(A[i][k]-suma2);
+        }
+        
+        for(int j=k+1;j<n;++j){
+            suma3=0;
+            for(int h=0;h<k-1;++h){
+                suma3+=L[k][h]*U[h][j];
+            }
+            U[k][j]=(A[k][j]-suma3)/L[k][k];
+         
+        }
+    }
 }
-
-
 
 void progressiveC(int n){
 	Z = new double[n];
@@ -74,12 +92,7 @@ void printSolution(string solutionFile, int size){
     for (int i = 0; i <size; ++i){
         write << X[i] << endl;
     }
-    for (int i = 0; i <size; ++i){
-        for (int j = 0; j <size; ++j){
-            cout << A[i][j] <<" " ;
-        }
-        cout << endl;
-    }
+
     write.close();
 }
 
@@ -87,21 +100,11 @@ int main(){
 	string originalFile,readingName,writingName,solutionFile;
     long long matrixSize;
     originalFile="matrix.txt";
-    solutionFile="solution.txt";
+    solutionFile="solutionLuCrout.txt";
     ifstream f("matrix.txt");
     f >> matrixSize; 
-    A = new double*[matrixSize];    
-    for (int i = 0; i < matrixSize; ++i){
-		A[i] = new double[matrixSize];
-    }
-    for (int i = 0; i < matrixSize; ++i){
-        for (int j = 0; j <= matrixSize; ++j){
-            f >> A[i][j];
-        }       
-    } 
     readMatrix(matrixSize,originalFile);
-    gaussianElimination(matrixSize);
-    //solveCrout(matrixSize);
+    crout(matrixSize);
     progressiveC(matrixSize);
     regressiveC(matrixSize);
     printSolution(solutionFile, matrixSize);
