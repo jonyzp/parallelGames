@@ -35,20 +35,6 @@ void readMatrix( int size,string origin){
     read.close();
 }
 
-void gaussianElimination(int n){
-	double multiplier;
-	for(int k=0; k<n; ++k){
-		L[k][k]=1;
-		for(int i=k+1; i<n; ++i){
-			multiplier = U[i][k]/U[k][k];
-			L[i][k]=multiplier;
-			for(int j=k; j<n; ++j){
-				U[i][j] = U[i][j] - multiplier*U[k][j];
-			}
-		}
-	}
-}
-
 void cholesky(int n){
     long long suma1,suma2,suma3;
     
@@ -118,17 +104,6 @@ int main(){
     solutionFile="solution.txt";
     ifstream f("matrix.txt");
     f >> matrixSize; 
-    /*A = new double*[matrixSize];    
-    for (int i = 0; i < matrixSize; ++i){
-		A[i] = new double[matrixSize];
-    }
-    for (int i = 0; i < matrixSize; ++i){
-        for (int j = 0; j <= matrixSize; ++j){
-            f >> A[i][j];
-        }       
-    } 
-*/
-
     readMatrix(matrixSize,originalFile);
     cholesky(matrixSize);
     progressiveC(matrixSize);
