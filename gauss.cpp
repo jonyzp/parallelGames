@@ -1,4 +1,4 @@
-//METODO DE GAUSS
+//GAUSS METHOD
 
 #include<iostream>
 #include<stdio.h>
@@ -10,7 +10,7 @@ int i,j,k,n;
 double m[20][20],aux;
 
 int main(){
-  
+
 std::ifstream f("matrix.txt");
   f >> n;
 
@@ -37,11 +37,11 @@ for(i=1;i<=n;i++){
           }
         }
       }
-    } 
+    }
 }
 
 std::cout<<"\n";
-std::cout<<"la matriz identidad es";
+std::cout<<"The identity matrix is :";
 std::cout<<"\n\n";
 for(i=1;i<=n;i++){
   for(j=1;j<=n;j++){
@@ -50,7 +50,7 @@ for(i=1;i<=n;i++){
   std::cout<<"\n\n";
 }
 
-std::cout<<"El valor de las incognitas es : ";
+std::cout<<"The value of the unknowns is : ";
 for(i=1;i<=n;i++){
   std::cout<<"\nX"<<i<<" = "<<m[i][n+1]<<"\n";
 }
