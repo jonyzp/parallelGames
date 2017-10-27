@@ -1,0 +1,8 @@
+Expresion	= 	python exp
+
+exp		= 	e
+seno		= 	sin
+coseno		=	cos
+^		=	**
+raiz		= 	mat.sqrt()
+ln		= 	log
