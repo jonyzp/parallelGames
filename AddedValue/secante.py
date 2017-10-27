@@ -1,11 +1,11 @@
 from evaluator import f
 
 def secanteMethod(x0,x1,tol,iter):
-    y0= f(x0)
+    y0= f(x0,funcion)
     if y0== 0:
         print "X0 is root"
     else:
-        y1=f(x1)
+        y1=f(x1,funcion)
         count=0
         error=tol+1
         Den=y1-y0
@@ -20,7 +20,7 @@ def secanteMethod(x0,x1,tol,iter):
             x0=x1
             y0=y1
             x1=Xaux
-            y1=f(x1)
+            y1=f(x1,funcion)
             Den=y1-y0
             count+=1
         print x1,"  |   ",  y1,"  |  " ,  error,"  |   "
@@ -33,4 +33,7 @@ def secanteMethod(x0,x1,tol,iter):
         else:
             print "Failed in ",iter," iterations"
 
+
+
+funcion=input(str("Ingrese la funcion"))
 secanteMethod(-1.099,-1.098,0.000000001,25)

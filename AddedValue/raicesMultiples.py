@@ -1,9 +1,9 @@
-from evaluator import f,fd,fdd
+from evaluator import f
 
 def raicesMultiples(Xo,tol,nIter):
-    fx=f(Xo)
-    dfx=fd(Xo)
-    ddfx=fdd(Xo)
+    fx=f(Xo,funcion)
+    dfx=f(Xo,derivada)
+    ddfx=f(Xo,segundaderivada)
     count=0
     error=tol+1
     den=(dfx*dfx)-(fx*ddfx)
@@ -14,9 +14,9 @@ def raicesMultiples(Xo,tol,nIter):
         Xi=Xo-(fx*dfx)/den
         error=abs(Xi-Xo)
         Xo=Xi
-        fx=f(Xo)
-        dfx=fd(Xo)
-        ddfx=fdd(Xo)
+        fx=f(Xo,funcion)
+        dfx=f(Xo,derivada)
+        ddfx=f(Xo,segundaderivada)
         den=(dfx *dfx) -(fx * ddfx)
         count+=1
         print Xo ,"  |   ",  fx,"  |  " ,  dfx,"  |   ",    error,"  |   "
@@ -29,5 +29,9 @@ def raicesMultiples(Xo,tol,nIter):
             print "there are possible multiple roots at ", Xi
     else:
             print "failure after N iterations"
+
+funcion=input(str("Ingrese la funcion"))
+derivada=input(str("Ingrese la derivada de la funcion"))
+segundaderivada=input(str("Ingrese la segunda derivada de la funcion"))
 
 raicesMultiples(-1.1,0.00000000000000001,20)

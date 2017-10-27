@@ -5,13 +5,13 @@ def incrementalSearch(x0, delta, iter):
         print("Delta no puede ser cero")
     if(iter<=0):
         print("Las iteraciones no pueden cer menores o iguales a cero")
-    fx0 = f(x0)
+    fx0 = f(x0,funcion)
     if(fx0 == 0):
         print(x0 + " es raiz")
     else:
         x1 = x0 + delta
         contador = 1
-        fx1 = f(x1)
+        fx1 = f(x1,funcion)
         print "-----------||------------"
         print "  X              f(x)    "
         print x0 ,"  |   ",  fx0,"  |  "
@@ -21,7 +21,7 @@ def incrementalSearch(x0, delta, iter):
             x0 = x1
             fx0 = fx1
             x1 = x0 + delta
-            fx1 = f(x1)
+            fx1 = f(x1,funcion)
             contador+=1
             print x1 ,"  |   ",  fx1,"  |  "
 
@@ -34,4 +34,5 @@ def incrementalSearch(x0, delta, iter):
             print("Fracaso en " , iter , " numero iteraciones")
 
 
+funcion=input(str("Ingrese la funcion"))
 incrementalSearch(-10,1,20)
