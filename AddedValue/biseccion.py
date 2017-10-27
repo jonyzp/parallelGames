@@ -12,12 +12,14 @@ def biseccion(Xinferior, Xsuperior, tolerancia, iteraciones):
         elif(funcionXsuperior == 0):
             print(Xsuperior," es raiz.")
         elif(funcionXinferior*funcionXsuperior < 0):
-            print "-------------||------------||-------------||--------------||------------"
-            print "  Xinferior     Xsuperior       Xmedio       f(Xmedio)        Error  "
             xm = (Xinferior+Xsuperior)/2
             funcionXm = f(xm)
             contador = 1
             errorAbs = tolerancia+1
+
+            print "-------------||------------||-------------||--------------||------------"
+            print "  Xinferior     Xsuperior       Xmedio       f(Xmedio)        Error  "
+            print Xinferior ,"  |   ",  Xsuperior,"  |  " ,  xm,"  |   ",    funcionXm,"  |   ",   errorAbs,"  |   "
             while(errorAbs > tolerancia and funcionXm !=0 and contador <= iteraciones) :
                 if(funcionXinferior * funcionXm < 0) :
                     Xsuperior = xm
