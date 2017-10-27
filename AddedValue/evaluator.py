@@ -28,3 +28,13 @@ def fd(num):
     a=eval(s, funcs, libres)
     #print "F()=","%.50f"%a
     return float("%.10f"%a)
+
+
+def fdd(num):
+    funcs = vars(math)
+    libres = dict(x=num)
+    #-e^(-2x-5)+x^(2)-x
+    s = "27*e**(-x)-(36*e**(-2*x))+(9*e**(-3*x))"
+    a=eval(s, funcs, libres)
+    #print "F()=","%.50f"%a
+    return float("%.10f"%a)
