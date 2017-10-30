@@ -1,4 +1,5 @@
 from evaluator import f
+import sys
 
 def newton(x0,tol,iteration):
     if(iteration <0 or tol<=0):
@@ -30,6 +31,13 @@ def newton(x0,tol,iteration):
             print("failed in the ", iteration , " iteration")
 
 
-funcion=input(str("Ingrese la funcion"))
-derivada=input(str("Ingrese la derivada de la funcion"))
-newton(-1.1,0.000000000001,20)
+if len(sys.argv)==6:
+    funcion = sys.argv[1]
+    derivada = sys.argv[2]
+    x0 = float (sys.argv[3])
+    tol = float (sys.argv[4])
+    itera = int (sys.argv[5])
+    newton(x0,tol,itera)
+else:
+    print "no se pasaron los parametros suficientes para ejecutar el metodo"
+

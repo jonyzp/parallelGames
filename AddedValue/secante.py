@@ -1,5 +1,5 @@
 from evaluator import f
-
+import sys
 def secanteMethod(x0,x1,tol,iter):
     y0= f(x0,funcion)
     if y0== 0:
@@ -25,15 +25,22 @@ def secanteMethod(x0,x1,tol,iter):
             count+=1
         print x1,"  |   ",  y1,"  |  " ,  error,"  |   "
         if y1==0:
-            print "X1 es root"
+            print x1," es root"
         elif error<tol:
-            print "X1 is an approximate root with tolerance: ",tol
+            print x1," is an approximate root with tolerance: ",tol
         elif Den==0:
             print "Might be a multiple root"
         else:
             print "Failed in ",iter," iterations"
 
+if len(sys.argv)==6:
+    funcion = sys.argv[1]
+    x0 = float (sys.argv[2])
+    x1 = float (sys.argv[3])
+    tol = float (sys.argv[4])
+    itera = int (sys.argv[5])
+    secanteMethod(x0,x1,tol,itera)
+else:
+    print "no se pasaron los parametros suficientes para ejecutar el metodo"
 
 
-funcion=input(str("Ingrese la funcion"))
-secanteMethod(-1.099,-1.098,0.000000001,25)

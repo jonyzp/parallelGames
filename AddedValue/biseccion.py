@@ -1,9 +1,10 @@
 from evaluator import f
+import sys
 
 def biseccion(Xinferior, Xsuperior, tolerancia, iteraciones):
 
     if(tolerancia <0 or iteraciones < 0) :
-		print("La tolerancia o las iteraciones no pueden ser menores que cero")
+        print("La tolerancia o las iteraciones no pueden ser menores que cero")
     else:
         funcionXinferior = f(Xinferior,funcion)
         funcionXsuperior = f(Xsuperior,funcion)
@@ -44,5 +45,12 @@ def biseccion(Xinferior, Xsuperior, tolerancia, iteraciones):
             print ("Intervalo inadecuado")
 
 
-funcion=input(str("Ingrese la funcion"))
-biseccion(-1.1,-1,0.00001,20)
+if len(sys.argv)==6:
+    funcion = sys.argv[1]
+    xinf = float (sys.argv[2])
+    xsup = float (sys.argv[3])
+    tol = float (sys.argv[4])
+    itera = int (sys.argv[5])
+    biseccion(xinf,xsup,tol,itera)
+else:
+    print "no se pasaron los parametros suficientes para ejecutar el metodo"
