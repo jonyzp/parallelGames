@@ -1,6 +1,6 @@
 from evaluator import f
-
-def puntoFijo(Xm,iteraciones,tolerancia):
+import sys
+def puntoFijo(Xm,tolerancia,iteraciones):
     if(iteraciones<0 or tolerancia<0):
         print("el numero de iteraciones y tolerancia deben de ser positivos")
     else:
@@ -25,8 +25,14 @@ def puntoFijo(Xm,iteraciones,tolerancia):
         else:
             print("El calculo excedio el numero de iteraciones esperadas", iteraciones)
 
+if len(sys.argv)==6:
+    funcion = sys.argv[1]
+    funcionG = sys.argv[2]
+    xm = float (sys.argv[3])
+    tol = float (sys.argv[4])
+    itera = int (sys.argv[5])
+    puntoFijo(xm,tol,itera)
 
-funcion=input(str("Ingrese la funcion"))
-funcionG=input(str("Ingrese la funcion G"))
+else:
+    print "no se pasaron los parametros suficientes para ejecutar el metodo"
 
-puntoFijo(-0.8,30,0.0000000001)

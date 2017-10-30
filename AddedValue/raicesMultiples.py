@@ -1,5 +1,5 @@
 from evaluator import f
-
+import sys
 def raicesMultiples(Xo,tol,nIter):
     fx=f(Xo,funcion)
     dfx=f(Xo,derivada)
@@ -30,8 +30,15 @@ def raicesMultiples(Xo,tol,nIter):
     else:
             print "failure after N iterations"
 
-funcion=input(str("Ingrese la funcion"))
-derivada=input(str("Ingrese la derivada de la funcion"))
-segundaderivada=input(str("Ingrese la segunda derivada de la funcion"))
+if len(sys.argv)==7:
+    funcion = sys.argv[1]
+    derivada = sys.argv[2]
+    segundaderivada = sys.argv[3]
+    x0 = float (sys.argv[4])
+    tol = float (sys.argv[5])
+    itera = int (sys.argv[6])
+    raicesMultiples(x0,tol,itera)
+else:
+    print "no se pasaron los parametros suficientes para ejecutar el metodo"
 
-raicesMultiples(-1.1,0.00000000000000001,20)
+

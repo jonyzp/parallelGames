@@ -1,4 +1,5 @@
 from evaluator import f
+import sys
 
 def incrementalSearch(x0, delta, iter):
     if(delta==0):
@@ -26,7 +27,7 @@ def incrementalSearch(x0, delta, iter):
             print x1 ,"  |   ",  fx1,"  |  "
 
         if(fx1 == 0):
-            print(x0 , " es la raiz")
+            print(x1 , " es la raiz")
         elif(fx0 * fx1 < 0):
             print("Hay raiz entre " , x0 , " y " , x1)
 
@@ -34,5 +35,11 @@ def incrementalSearch(x0, delta, iter):
             print("Fracaso en " , iter , " numero iteraciones")
 
 
-funcion=input(str("Ingrese la funcion"))
-incrementalSearch(-10,1,20)
+if len(sys.argv)==5:
+    funcion = sys.argv[1]
+    x0 = float (sys.argv[2])
+    delta = float (sys.argv[3])
+    itera = int (sys.argv[4])
+    incrementalSearch(x0,delta,itera)
+else:
+    print "no se pasaron los parametros suficientes para ejecutar el metodo"
