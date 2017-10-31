@@ -1,5 +1,6 @@
 from evaluator import f
 import sys
+from errorPrinter import eprint
 
 def newton(x0,tol,iteration):
     if(iteration <0 or tol<=0):
@@ -24,9 +25,9 @@ def newton(x0,tol,iteration):
         if(fx == 0):
             print(x0 , "is root")
         elif(error < tol):
-            print(x1 , " is an aproximation to a root with tolerance " , tol)
+            print(x0 , " is an aproximation to a root with tolerance " , tol)
         elif(dfx == 0):
-            print(x1 , " maybe a multiple root")
+            print(x0 , " maybe a multiple root")
         else:
             print("failed in the ", iteration , " iteration")
 
@@ -39,5 +40,5 @@ if len(sys.argv)==6:
     itera = int (sys.argv[5])
     newton(x0,tol,itera)
 else:
-    print "no se pasaron los parametros suficientes para ejecutar el metodo"
+    eprint("no se pasaron los parametros suficientes para ejecutar el metodo")
 
