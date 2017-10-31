@@ -8,6 +8,7 @@ package pkginterface;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +19,8 @@ public class GUI extends javax.swing.JFrame {
     /**
      * Creates new form GUI
      */
+    String selectedMethod="";
+            
     public GUI() {
         initComponents();
     }
@@ -82,6 +85,7 @@ public class GUI extends javax.swing.JFrame {
         txtfppx = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtgx = new javax.swing.JTextField();
+        btnExecute = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -161,6 +165,13 @@ public class GUI extends javax.swing.JFrame {
         txtgx.setToolTipText("");
         txtgx.setEnabled(false);
 
+        btnExecute.setText("Execute");
+        btnExecute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExecuteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -208,7 +219,8 @@ public class GUI extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel7)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtfppx))))
+                            .addComponent(txtfppx)))
+                    .addComponent(btnExecute))
                 .addContainerGap(449, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -253,7 +265,9 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtIter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnExecute)
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
         pack();
@@ -261,6 +275,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void btnNewtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewtonActionPerformed
         // TODO add your handling code here:
+        selectedMethod="newton";
         
         txtfx.setEnabled(true);
         txtfpx.setEnabled(true);
@@ -272,40 +287,12 @@ public class GUI extends javax.swing.JFrame {
         txtgx.setEnabled(false);
         txtx1.setEnabled(false);
         
-        
-        /**String file = "AddedValue/newton.py";
-        String funct = jTextField1.getText();
-        String deriv = jTextField2.getText();
-        String x0 = jTextField3.getText();
-        String toler = jTextField4.getText();
-        String maxIters = jTextField5.getText();
-
-        String args = funct + " " + deriv + " " + x0 + " " + toler + " " + maxIters;
-        BufferedReader [] std = executeCommand(file, args);  
-        String s = null;
-        try{
-            // read the output from the command
-            System.out.println("Here is the standard output of the command:\n");
-            while ((s = std[0].readLine()) != null) {
-                System.out.println(s);
-            }
-
-            // read any errors from the attempted command
-            System.out.println("Here is the standard error of the command (if any):\n");
-            while ((s = std[1].readLine()) != null) {
-                System.out.println(s);
-            }
-        }
-        catch (IOException e) {
-            System.out.println("exception happened - here's what I know: ");
-            e.printStackTrace();
-            System.exit(-1);
-        }
-        */
     }//GEN-LAST:event_btnNewtonActionPerformed
 
     private void btnBisectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBisectionActionPerformed
-
+        
+        selectedMethod="biseccion";
+                
         txtfx.setEnabled(true);
         txtfpx.setEnabled(false);
         txtx0.setEnabled(true);
@@ -315,38 +302,10 @@ public class GUI extends javax.swing.JFrame {
         txtfppx.setEnabled(false);
         txtgx.setEnabled(false);
         txtx1.setEnabled(true);
-
-        /**String file = "AddedValue/biseccion.py";
-        String funct = jTextField1.getText();
-        String x0 = jTextField3.getText();
-        String x1 = jTextField6.getText();
-        String toler = jTextField4.getText();
-        String maxIters = jTextField5.getText();
-
-        String args = funct + " " + x0 + " " + x1 + " " + toler + " " + maxIters;
-        BufferedReader [] std = executeCommand(file, args);  
-        String s = null;
-        try{
-            // read the output from the command
-            System.out.println("Here is the standard output of the command:\n");
-            while ((s = std[0].readLine()) != null) {
-                System.out.println(s);
-            }
-
-            // read any errors from the attempted command
-            System.out.println("Here is the standard error of the command (if any):\n");
-            while ((s = std[1].readLine()) != null) {
-                System.out.println(s);
-            }
-        }
-        catch (IOException e) {
-            System.out.println("exception happened - here's what I know: ");
-            e.printStackTrace();
-            System.exit(-1);
-        }*/
     }//GEN-LAST:event_btnBisectionActionPerformed
 
     private void btnSecantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSecantActionPerformed
+        selectedMethod="secante";
         
         txtfx.setEnabled(true);
         txtfpx.setEnabled(false);
@@ -360,6 +319,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSecantActionPerformed
 
     private void btnfixpointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfixpointActionPerformed
+        selectedMethod="puntoFijo";
         
         txtfx.setEnabled(true);
         txtfpx.setEnabled(false);
@@ -373,6 +333,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnfixpointActionPerformed
 
     private void btnmultrootsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmultrootsActionPerformed
+        selectedMethod="raicesMultiples";
         txtfx.setEnabled(true);
         txtfpx.setEnabled(true);
         txtx0.setEnabled(true);
@@ -383,6 +344,85 @@ public class GUI extends javax.swing.JFrame {
         txtgx.setEnabled(false);
         txtx1.setEnabled(false);
     }//GEN-LAST:event_btnmultrootsActionPerformed
+
+    private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
+        // TODO add your handling code here:
+        String args="";
+        String file="";
+        if(selectedMethod.equals("newton")){
+            file = "AddedValue/newton.py";
+            String funct = txtfx.getText();
+            String deriv = txtfpx.getText();
+            String x0 = txtx0.getText();
+            String toler = txttol.getText();
+            String maxIters = txtIter.getText();
+
+            args = funct + " " + deriv + " " + x0 + " " + toler + " " + maxIters;
+        }else if(selectedMethod.equals("biseccion")){
+            file = "AddedValue/biseccion.py";
+            String funct = txtfx.getText();
+            String x0 = txtx0.getText();
+            String x1 = txtx1.getText();
+            String toler = txttol.getText();
+            String maxIters = txtIter.getText();
+
+            args = funct + " " + x0 + " " + x1 + " " + toler + " " + maxIters;
+            
+        }else if(selectedMethod.equals("secante")){
+            file = "AddedValue/secante.py";
+            String funct = txtfx.getText();
+            String x0 = txtx0.getText();
+            String x1 = txtx1.getText();
+            String toler = txttol.getText();
+            String maxIters = txtIter.getText();
+
+            args = funct + " " + x0 + " " + x1 + " " + toler + " " + maxIters;
+            
+        }else if(selectedMethod.equals("puntoFijo")){
+            file = "AddedValue/puntoFijo.py";
+            String funct = txtfx.getText();
+            String functg = txtgx.getText();
+            String x0 = txtx0.getText();
+            String toler = txttol.getText();
+            String maxIters = txtIter.getText();
+
+            args = funct + " " + functg + " " + x0 + " " + toler + " " + maxIters;
+            
+        }else if(selectedMethod.equals("raicesMultiples")){
+            file = "AddedValue/raicesMultiples.py";
+            String funct = txtfx.getText();
+            String deriv = txtfpx.getText();
+            String deriv2 = txtfppx.getText();
+            String x0 = txtx0.getText();
+            String toler = txttol.getText();
+            String maxIters = txtIter.getText();
+
+            args = funct + " " + deriv +" "+deriv2 + " " + x0 + " " + toler + " " + maxIters;
+            
+        }
+        BufferedReader [] std = executeCommand(file, args);  
+        String s = null;
+        try{
+            boolean error=false;
+            // read any errors from the attempted command
+            while ((s = std[1].readLine()) != null) {
+                JOptionPane.showMessageDialog(this,s,"Error",JOptionPane.ERROR_MESSAGE);
+                error=true;
+            }  
+            // read the output from the command
+            if(!error){
+                System.out.println("Here is the standard output of the command:\n");
+                while ((s = std[0].readLine()) != null) {
+                    System.out.println(s);
+                }
+            }
+        }
+        catch (IOException e) {
+            System.out.println("exception happened - here's what I know: ");
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }//GEN-LAST:event_btnExecuteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -421,6 +461,7 @@ public class GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBisection;
+    private javax.swing.JButton btnExecute;
     private javax.swing.JButton btnNewton;
     private javax.swing.JButton btnSecant;
     private javax.swing.JButton btnfixpoint;
