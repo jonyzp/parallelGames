@@ -1,11 +1,12 @@
+from errorPrinter import eprint
 from evaluator import f
 import sys
 
 def incrementalSearch(x0, delta, iter):
     if(delta==0):
-        print("Delta no puede ser cero")
+        eprint("Delta no puede ser cero")
     if(iter<=0):
-        print("Las iteraciones no pueden cer menores o iguales a cero")
+        eprint("Las iteraciones no pueden cer menores o iguales a cero")
     fx0 = f(x0,funcion)
     if(fx0 == 0):
         print(x0 + " es raiz")
@@ -32,7 +33,7 @@ def incrementalSearch(x0, delta, iter):
             print("Hay raiz entre " , x0 , " y " , x1)
 
         else:
-            print("Fracaso en " , iter , " numero iteraciones")
+            eprint("Fracaso en " , iter , " numero iteraciones")
 
 
 if len(sys.argv)==5:
@@ -42,4 +43,4 @@ if len(sys.argv)==5:
     itera = int (sys.argv[4])
     incrementalSearch(x0,delta,itera)
 else:
-    print "no se pasaron los parametros suficientes para ejecutar el metodo"
+    eprint ("no se pasaron los parametros suficientes para ejecutar el metodo")

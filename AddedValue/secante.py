@@ -1,3 +1,4 @@
+from errorPrinter import eprint
 from evaluator import f
 import sys
 def secanteMethod(x0,x1,tol,iter):
@@ -31,7 +32,7 @@ def secanteMethod(x0,x1,tol,iter):
         elif Den==0:
             print "Might be a multiple root"
         else:
-            print "Failed in ",iter," iterations"
+            eprint ("Failed in ",iter," iterations")
 
 if len(sys.argv)==6:
     funcion = sys.argv[1]
@@ -41,6 +42,6 @@ if len(sys.argv)==6:
     itera = int (sys.argv[5])
     secanteMethod(x0,x1,tol,itera)
 else:
-    print "no se pasaron los parametros suficientes para ejecutar el metodo"
+    eprint ("no se pasaron los parametros suficientes para ejecutar el metodo")
 
 

@@ -4,7 +4,7 @@ from errorPrinter import eprint
 
 def newton(x0,tol,iteration):
     if(iteration <0 or tol<=0):
-        print("the iterations and tolerance must be positive")
+        eprint("the iterations and tolerance must be positive")
     else:
 
         fx = f(x0,funcion)
@@ -29,7 +29,7 @@ def newton(x0,tol,iteration):
         elif(dfx == 0):
             print(x0 , " maybe a multiple root")
         else:
-            print("failed in the ", iteration , " iteration")
+            eprint("failed in the ", iteration , " iteration")
 
 
 if len(sys.argv)==6:

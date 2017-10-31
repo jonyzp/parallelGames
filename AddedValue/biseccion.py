@@ -1,10 +1,11 @@
+from errorPrinter import eprint
 from evaluator import f
 import sys
 
 def biseccion(Xinferior, Xsuperior, tolerancia, iteraciones):
 
     if(tolerancia <0 or iteraciones < 0) :
-        print("La tolerancia o las iteraciones no pueden ser menores que cero")
+        eprint("La tolerancia o las iteraciones no pueden ser menores que cero")
     else:
         funcionXinferior = f(Xinferior,funcion)
         funcionXsuperior = f(Xsuperior,funcion)
@@ -40,9 +41,9 @@ def biseccion(Xinferior, Xsuperior, tolerancia, iteraciones):
             elif(errorAbs < tolerancia):
                 print (xm, "es aproximacion a una raiz con tolerancia de:", tolerancia)
             else:
-                print ("Fracaso en iteraciones ", iteraciones)
+                eprint ("Fracaso en iteraciones ", iteraciones)
         else:
-            print ("Intervalo inadecuado")
+            eprint ("Intervalo inadecuado")
 
 
 if len(sys.argv)==6:
@@ -53,4 +54,4 @@ if len(sys.argv)==6:
     itera = int (sys.argv[5])
     biseccion(xinf,xsup,tol,itera)
 else:
-    print "no se pasaron los parametros suficientes para ejecutar el metodo"
+    eprint ("no se pasaron los parametros suficientes para ejecutar el metodo")

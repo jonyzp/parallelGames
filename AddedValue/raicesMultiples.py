@@ -1,3 +1,4 @@
+from errorPrinter import eprint
 from evaluator import f
 import sys
 def raicesMultiples(Xo,tol,nIter):
@@ -28,7 +29,7 @@ def raicesMultiples(Xo,tol,nIter):
     elif (dfx == 0) :
             print "there are possible multiple roots at ", Xi
     else:
-            print "failure after N iterations"
+            eprint ("failure after N iterations")
 
 if len(sys.argv)==7:
     funcion = sys.argv[1]
@@ -39,6 +40,6 @@ if len(sys.argv)==7:
     itera = int (sys.argv[6])
     raicesMultiples(x0,tol,itera)
 else:
-    print "no se pasaron los parametros suficientes para ejecutar el metodo"
+    eprint ("no se pasaron los parametros suficientes para ejecutar el metodo")
 
 

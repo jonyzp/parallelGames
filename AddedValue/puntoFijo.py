@@ -1,8 +1,9 @@
+from errorPrinter import eprint
 from evaluator import f
 import sys
 def puntoFijo(Xm,tolerancia,iteraciones):
     if(iteraciones<0 or tolerancia<0):
-        print("el numero de iteraciones y tolerancia deben de ser positivos")
+        eprint("el numero de iteraciones y tolerancia deben de ser positivos")
     else:
         print "-----------||------------||-------------||--------------"
         print "  X              G(x)          f(x)            Error  "
@@ -23,7 +24,7 @@ def puntoFijo(Xm,tolerancia,iteraciones):
         elif(error<=tolerancia):
             print("la raiz obtenida con un grado de tolerancia",tolerancia," de error es",Xm)
         else:
-            print("El calculo excedio el numero de iteraciones esperadas", iteraciones)
+            eprint("El calculo excedio el numero de iteraciones esperadas", iteraciones)
 
 if len(sys.argv)==6:
     funcion = sys.argv[1]
@@ -34,5 +35,5 @@ if len(sys.argv)==6:
     puntoFijo(xm,tol,itera)
 
 else:
-    print "no se pasaron los parametros suficientes para ejecutar el metodo"
+    eprint ("no se pasaron los parametros suficientes para ejecutar el metodo")
 
