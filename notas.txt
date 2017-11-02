@@ -1,0 +1,12 @@
+Cuando se daña las solucion
+Cuantos sistemas aguantan la maquina
+El error de eliminacion y de lu es redonde
+Comparacion de tiempos y tamaños de matrices
+
+suponer que una matriz no cabe en memoria principal; dividir la matriz; JacobiBlocks
+
+Graficos de error, mirando el valor verdadero segun e valor que da la solucion que uno esta buscando
+
+Sustentación: 14 de nov entregamos
+el 21 exposicion
+24 Final
