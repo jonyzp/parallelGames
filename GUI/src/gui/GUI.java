@@ -6,7 +6,9 @@
 package gui;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.swing.JOptionPane;
 
@@ -31,8 +33,11 @@ public class GUI extends javax.swing.JFrame {
             
 	    // run the Unix "ps -ef" command
             // using the Runtime exec method:
-            String ruta_args = "/home/mateo/Documentos/UNIVERSIDAD/Semestre_6/análisis/proyecto/parallelGames/GUI/src/cpp_numerical_methods/" +file+" "+args;
-            Process p = Runtime.getRuntime().exec(ruta_args);
+            String ruta_args = "C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\GUI\\src\\cpp_numerical_methods\\" +file + ".exe";
+            ProcessBuilder pb = new ProcessBuilder(ruta_args);
+            pb.redirectError();
+            Process p = pb.start();
+            //Process p = Runtime.getRuntime().exec(ruta_args);
             
             stdOutput = new BufferedReader(new 
                  InputStreamReader(p.getInputStream()));
@@ -51,6 +56,24 @@ public class GUI extends javax.swing.JFrame {
         BufferedReader[] std = {stdOutput, stdError};
         
         return std;
+    }
+    
+    void executeCmnd(String command){
+        try {
+            ProcessBuilder builder = new ProcessBuilder(command);
+            Process process = builder.start();
+            InputStream inputStream = process.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream), 1);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+            inputStream.close();
+            bufferedReader.close();
+        } catch (Exception ioe) {
+            ioe.printStackTrace();
+            System.out.println(ioe.toString());
+        }
     }
 
     /**
@@ -94,11 +117,47 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExecLUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecLUActionPerformed
-        // TODO add your handling code here:
+        String compile = "g++ -o lu \"C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\GUI\\src\\cpp_numerical_methods\\luCholeskyIntarface.cpp\"";
+        final String dosCommand = "cmd /c g++ /s";
+        final String location = " -o luky  C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\GUI\\src\\cpp_numerical_methods\\luCholeskyIntarface.cpp";
+        try
+        {
+            final Process process = Runtime.getRuntime().exec(dosCommand + " " + location);
+            final InputStream in = process.getInputStream();
+            int ch;
+            while((ch = in.read()) != -1)
+            {
+                System.out.print((char)ch);
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        String command1 = "C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\GUI\\src\\cpp_numerical_methods\\lu.exe";
+        final String cmd = "cmd /c /s";
+        final String ubic = "C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\GUI\\src\\cpp_numerical_methods\\lu.exe";
+        try
+        {
+            final Process process = Runtime.getRuntime().exec(cmd + " " + ubic);
+            final InputStream in = process.getInputStream();
+            int ch;
+            while((ch = in.read()) != -1)
+            {
+                System.out.print((char)ch);
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        //executeCmnd(compile);
+        //executeCmnd(command1);
+        /*
         String args="";
         String file="";
         //if(selectedMethod.equals("newton")){
-            file = "luCho";
+            file = "lucho";
             /*String funct = txtfx.getText();
             String deriv = txtfpx.getText();
             String x0 = txtx0.getText();
@@ -107,6 +166,7 @@ public class GUI extends javax.swing.JFrame {
             
             args = funct + " " + deriv + " " + x0 + " " + toler + " " + maxIters;
         }*/
+        /*
         BufferedReader [] std = executeCommand(file, args);  
         String s = null;
         try{
@@ -128,7 +188,7 @@ public class GUI extends javax.swing.JFrame {
             System.out.println("exception happened - here's what I know: ");
             e.printStackTrace();
             System.exit(-1);
-        }
+        }*/
     }//GEN-LAST:event_btnExecLUActionPerformed
 
     /**
