@@ -79,9 +79,9 @@ void crout(int n){
         L[k][k]=A[k][k]-suma1;
         U[k][k]=1;
 
-        for(int i=k+1;i<n;++i){
+        for(int i=k;i<n;++i){
             suma2=0;
-            for(int p=0;p<k-1;++p){
+            for(int p=0;p<k;++p){
                 suma2+=L[i][p]*U[p][k];
             }
             L[i][k]=(A[i][k]-suma2);
@@ -89,7 +89,7 @@ void crout(int n){
         
         for(int j=k+1;j<n;++j){
             suma3=0;
-            for(int h=0;h<k-1;++h){
+            for(int h=0;h<k;++h){
                 suma3+=L[k][h]*U[h][j];
             }
             U[k][j]=(A[k][j]-suma3)/L[k][k];

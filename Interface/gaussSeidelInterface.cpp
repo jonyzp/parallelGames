@@ -77,10 +77,16 @@ int main(){
           }
       }
     independents.assign(mSize, 0);
+    independents[0]=2.0;
+    independents[1]=2.0;
+    independents[2]=7.0;
+    independents[3]=4.0;
+    
     cout << "tolerance? g.e 0.01" << endl;
     cin >> tolerance;
     cout << "iterations? g.e: 100" << endl;
     cin >> iterations;
+    printSolution();
     success = gaussS(mSize, tolerance, iterations);
     if (success){
         cout <<"solution: "<<endl;

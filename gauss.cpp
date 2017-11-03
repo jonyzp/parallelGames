@@ -21,6 +21,7 @@ for (i = 1; i <= n; i++){
   f >> m[i][n+1];
 }
 
+time_t start = time(0);
 for(i=1;i<=n;i++){
     if(m[i][i]!=0){
       aux=1/m[i][i];
@@ -39,6 +40,9 @@ for(i=1;i<=n;i++){
       }
     }
 }
+time_t end = time(0);
+double tim = difftime(end, start) * 1000.0;
+
 
 std::cout<<"\n";
 std::cout<<"The identity matrix is :";
@@ -53,7 +57,10 @@ for(i=1;i<=n;i++){
 std::cout<<"The value of the unknowns is : ";
 for(i=1;i<=n;i++){
   std::cout<<"\nX"<<i<<" = "<<m[i][n+1]<<"\n";
+
 }
+cout << "el tiempo que se tardo en encontrar la solucion fue: " << tim<<endl;
+
 getchar();
 return 1;
 }

@@ -83,10 +83,15 @@ int main(){
     solutionFile="solution.txt";
     ifstream f("matrix.txt");
     f >> matrixSize; 
+    
     readMatrix(matrixSize,originalFile);
+    time_t start = time(0);    
     gaussianElimination(matrixSize);
     progressiveC(matrixSize);
     regressiveC(matrixSize);
+    time_t end = time(0);
+    double tim = difftime(end, start) * 1000.0;
+    printf("%.30g\n", tim);
     printSolution(solutionFile, matrixSize);
 	return 0;
 }
