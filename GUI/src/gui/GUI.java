@@ -26,6 +26,53 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
     }
     
+    public void execute(){
+        // TODO add your handling code here:
+        String file = "";
+        String args = "";
+        if(selectedMethod.equals("jacobi")){
+            file = "jacobi.py";
+            String tolerance = txtTolerance.getText();
+            String maxIters = txtMaxIterations.getText();
+
+            args = tolerance + " " + maxIters;
+            
+        }else if(selectedMethod.equals("crout")){
+            file = "luCrout.py";
+        }else if(selectedMethod.equals("lucho")){
+            file = "luCholesky.py";
+        }else if(selectedMethod.equals("doolittle")){
+            file = "luDoolittle.py";
+        }else if(selectedMethod.equals("gauss")){
+            file = "luGauss.py";
+        }
+        BufferedReader [] std = executeCommand(file, args);  
+        String s = null;
+        try{
+            boolean error=false;
+            // read any errors from the attempted command
+            while ((s = std[1].readLine()) != null) {
+                JOptionPane.showMessageDialog(this,s,"Error",JOptionPane.ERROR_MESSAGE);
+                error=true;
+            }  
+            // read the output from the command
+            if(!error){
+                //System.out.println("Here is the standard output of the command:\n");
+                output.setText("");
+                output.append("Here is the standard output of the command:\n");
+                while ((s = std[0].readLine()) != null) {
+                    //System.out.println(s);
+                    output.append(s + "\n");
+                }
+            }
+        }
+        catch (IOException e) {
+            System.out.println("exception happened - here's what I know: ");
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
+    
     public BufferedReader[] executeCommand(String file, String args){
 
         BufferedReader stdOutput = null;
@@ -57,23 +104,6 @@ public class GUI extends javax.swing.JFrame {
         return std;
     }
     
-    void executeCmnd(String command){
-        try {
-            ProcessBuilder builder = new ProcessBuilder(command);
-            Process process = builder.start();
-            InputStream inputStream = process.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream), 1);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(line);
-            }
-            inputStream.close();
-            bufferedReader.close();
-        } catch (Exception ioe) {
-            ioe.printStackTrace();
-            System.out.println(ioe.toString());
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,6 +124,8 @@ public class GUI extends javax.swing.JFrame {
         btnExecCrout = new javax.swing.JButton();
         btnExecDooLittle = new javax.swing.JButton();
         btnExecGauss = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        output = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,117 +179,107 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        output.setColumns(20);
+        output.setRows(5);
+        jScrollPane1.setViewportView(output);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExecute)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtMaxIterations, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                            .addComponent(txtTolerance))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnExecCholesky)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExecCrout)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExecDooLittle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExecGauss)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(btnJacobi)
-                .addGap(262, 262, 262))
+                            .addComponent(btnExecCholesky)
+                            .addComponent(btnExecCrout)
+                            .addComponent(btnExecDooLittle)
+                            .addComponent(btnExecGauss)
+                            .addComponent(btnJacobi)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(27, 27, 27)
+                                .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(btnExecute)))))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExecCholesky)
-                    .addComponent(btnJacobi)
-                    .addComponent(btnExecCrout)
-                    .addComponent(btnExecDooLittle)
-                    .addComponent(btnExecGauss))
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(136, 136, 136)
-                .addComponent(btnExecute)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnJacobi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnExecCholesky)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExecCrout)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnExecDooLittle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExecGauss)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExecute)
+                        .addGap(0, 205, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExecCholeskyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecCholeskyActionPerformed
-        selectedMethod = "luCho";
-        
+        selectedMethod = "lucho";
+        txtTolerance.setEnabled(false);
+        txtMaxIterations.setEnabled(false);
     }//GEN-LAST:event_btnExecCholeskyActionPerformed
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
-        // TODO add your handling code here:
-        String file = "";
-        String args = "";
-        if(selectedMethod.equals("jacobi")){
-            file = "jacobi.py";
-            String tolerance = txtTolerance.getText();
-            String maxIters = txtMaxIterations.getText();
-
-            args = tolerance + " " + maxIters;
-            
-        }
-        BufferedReader [] std = executeCommand(file, args);  
-        String s = null;
-        try{
-            boolean error=false;
-            // read any errors from the attempted command
-            while ((s = std[1].readLine()) != null) {
-                JOptionPane.showMessageDialog(this,s,"Error",JOptionPane.ERROR_MESSAGE);
-                error=true;
-            }  
-            // read the output from the command
-            if(!error){
-                System.out.println("Here is the standard output of the command:\n");
-                while ((s = std[0].readLine()) != null) {
-                    System.out.println(s);
-                }
-            }
-        }
-        catch (IOException e) {
-            System.out.println("exception happened - here's what I know: ");
-            e.printStackTrace();
-            System.exit(-1);
-        }
+        execute();
     }//GEN-LAST:event_btnExecuteActionPerformed
 
     private void btnJacobiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJacobiActionPerformed
         selectedMethod = "jacobi";
+        txtTolerance.setEnabled(true);
+        txtMaxIterations.setEnabled(true);
     }//GEN-LAST:event_btnJacobiActionPerformed
 
     private void btnExecCroutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecCroutActionPerformed
-        // TODO add your handling code here:
+        selectedMethod = "crout";
+        txtTolerance.setEnabled(false);
+        txtMaxIterations.setEnabled(false);
     }//GEN-LAST:event_btnExecCroutActionPerformed
 
     private void btnExecDooLittleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecDooLittleActionPerformed
-        // TODO add your handling code here:
+        selectedMethod = "doolittle";
+        txtTolerance.setEnabled(false);
+        txtMaxIterations.setEnabled(false);
     }//GEN-LAST:event_btnExecDooLittleActionPerformed
 
     private void btnExecGaussActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecGaussActionPerformed
-        // TODO add your handling code here:
+        selectedMethod = "gauss";
+        txtTolerance.setEnabled(false);
+        txtMaxIterations.setEnabled(false);
     }//GEN-LAST:event_btnExecGaussActionPerformed
 
     /**
@@ -304,6 +326,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnJacobi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea output;
     private javax.swing.JTextField txtMaxIterations;
     private javax.swing.JTextField txtTolerance;
     // End of variables declaration//GEN-END:variables
