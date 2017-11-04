@@ -1,19 +1,22 @@
 import numpy as np
 import sys
+import json
 from math import *
 
 
 
 def initializeMatrix(file,size):
     A = np.zeros((size, size+1))
-    xValues = np.zeros(size) #sys.argv[4] array con los valores iniciales
-    xNewValues = np.zeros(size)    
+     #sys.argv[4] array con los valores iniciales
+    xValues= json.loads(sys.argv[4])
+
+    xNewValues = np.zeros(size)
     for i in range (size):
         cont=0
         fileMio=file.readline().replace("\n","").split(" ")
         linea=fileMio
         for j in linea:
-            A[i][cont]=float(j) 
+            A[i][cont]=float(j)
             cont+=1
     return A,xValues,xNewValues
 
@@ -27,11 +30,11 @@ def newJacobi(xValues,xNewValues,A,size):
                 suma += var*xValues[j]
             else:
                 aii = var
-        
+
         var = A[i][size]
         xNewValues[i] = (var - suma)/aii
         disp = max(disp, abs(xNewValues[i]- xValues[i]))
-    
+
     return disp,xNewValues
 
 def jacobi(xValues,xNewValues,A,size,tol,niter):
@@ -43,7 +46,7 @@ def jacobi(xValues,xNewValues,A,size,tol,niter):
         disp,xNewValues = newJacobi(xValues,xNewValues,A,size)
         print "Iter:",cont
         cont+=1
-        
+
         print "X vector:",np.array(xNewValues)
         print ("\n")
         print "Error: ",disp
@@ -60,11 +63,11 @@ def main():
     file=open(name)
     size=int(file.readline())
     A,xValues,xNewValues = initializeMatrix(file,size)
-    
+
     #tolerance=float(input( "how much tolerance? for example if you have n=10, tolerance should be 0.01 and maxIters=10000\n"  ))
     tolerance=float(sys.argv[2])
-    #maxIterations=float(input("how many iterations? i.e: 100\n")) 
-    maxIterations=float(sys.argv[3]) 
+    #maxIterations=float(input("how many iterations? i.e: 100\n"))
+    maxIterations=float(sys.argv[3])
     success,xValues,xNewValues,A,tol,niter,error = jacobi(xValues,xNewValues,A,size, tolerance, maxIterations)
     #print success,xValues,xNewValues,A,tol,niter
     if (success):
@@ -75,8 +78,8 @@ def main():
         print ("\n")
         print "Error: ",error
         print ("\n")
-        
+
     else:
-        print "could not reach the solutions in ", maxIterations , " iterations" 
+        print "could not reach the solutions in ", maxIterations , " iterations"
 
 main()

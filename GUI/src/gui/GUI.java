@@ -34,15 +34,17 @@ public class GUI extends javax.swing.JFrame {
             file = "jacobi.py";
             String tolerance = txtTolerance.getText();
             String maxIters = txtMaxIterations.getText();
+            String initial = initialValuesText.getText();
 
-            args = tolerance + " " + maxIters;
+            args = tolerance + " " + maxIters + " "+initial;
             
         }else if(selectedMethod.equals("seidel")){
             file = "gaussSeidel.py";
             String tolerance = txtTolerance.getText();
             String maxIters = txtMaxIterations.getText();
+            String initial = initialValuesText.getText();
 
-            args = tolerance + " " + maxIters;
+            args = tolerance + " " + maxIters + " "+ initial;
             
         }else if(selectedMethod.equals("crout")){
             file = "luCrout.py";
@@ -88,7 +90,8 @@ public class GUI extends javax.swing.JFrame {
             
 	    // run the Unix "ps -ef" command
             // using the Runtime exec method:
-            String ruta = "C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\InterfaceMethodsPython\\";
+            String ruta = "/Users/marcossierra/Dropbox/Eafit/Semestre6/"
+                    + "AnalisisNumerico/Proyecto/parallelGames/InterfaceMethodsPython/";
             String ruta_args = "python " + ruta+file+" " + ruta + "matrix.txt "+args;
             Process p = Runtime.getRuntime().exec(ruta_args);
             
@@ -134,6 +137,9 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         output = new javax.swing.JTextArea();
         btnSeidel = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        initialValuesText = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -198,6 +204,10 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Initial Values");
+
+        jLabel4.setText("i.e [1,2,3]");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,22 +223,30 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(27, 27, 27)
-                                .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(btnExecute))
-                            .addComponent(btnExecCholesky)
-                            .addComponent(btnExecCrout)
-                            .addComponent(btnExecDooLittle)
-                            .addComponent(btnExecGauss))
-                        .addGap(18, 18, 18)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnExecCholesky)
+                                    .addComponent(btnExecCrout)
+                                    .addComponent(btnExecDooLittle)
+                                    .addComponent(btnExecGauss)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(initialValuesText))))
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnExecute)
+                                .addGap(63, 63, 63)))))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
@@ -251,8 +269,14 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(btnExecute)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(initialValuesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnExecute)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnExecCholesky)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExecCrout)
@@ -260,7 +284,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(btnExecDooLittle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExecGauss)
-                        .addGap(0, 164, Short.MAX_VALUE)))
+                        .addGap(0, 84, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -354,8 +378,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnExecute;
     private javax.swing.JButton btnJacobi;
     private javax.swing.JButton btnSeidel;
+    private javax.swing.JTextField initialValuesText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea output;
     private javax.swing.JTextField txtMaxIterations;
