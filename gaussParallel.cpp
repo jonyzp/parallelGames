@@ -1,13 +1,13 @@
 //GAUSS METHOD
 
-#include<iostream>
-#include<stdio.h>
-#include<curses.h>
-#include<stdlib.h>
-#include<fstream>
+#include <iostream>
+#include <stdio.h>
+#include <curses.h>
+#include <stdlib.h>
+#include <fstream>
 
 using namespace std;
-int i,j,k,n,row,column;
+int i,j,k,n;
 double multi,**m,*X;
 
 void readMatrix(){
@@ -43,7 +43,7 @@ void gaussElimination(){
     {
       multi= m[i][k]/m[k][k];
       m[i][k] =0;
-      for (int j = k+1; j< n+1; ++j)
+      for (j = k+1; j< n+1; ++j)
       {
         m[i][j] = double(m[i][j]- multi* m[k][j]);
       }
