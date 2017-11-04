@@ -28,14 +28,12 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnExecCholesky" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnExecCrout" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnExecDooLittle" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnExecGauss" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="btnJacobi" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSeidel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -52,10 +50,14 @@
                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                               <Component id="btnExecute" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="btnExecCholesky" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnExecCrout" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnExecDooLittle" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnExecGauss" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="655" max="-2" attributes="0"/>
               <EmptySpace pref="32" max="32767" attributes="0"/>
           </Group>
@@ -66,17 +68,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="btnJacobi" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnExecCholesky" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnExecCrout" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnExecDooLittle" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnExecGauss" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSeidel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -89,7 +85,15 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnExecute" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="205" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnExecCholesky" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnExecCrout" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnExecDooLittle" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnExecGauss" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="164" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -100,7 +104,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnExecCholesky">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Select Lu Cholesky"/>
+        <Property name="text" type="java.lang.String" value="Execute Lu Cholesky"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExecCholeskyActionPerformed"/>
@@ -144,7 +148,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnExecCrout">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Select Lu Crout"/>
+        <Property name="text" type="java.lang.String" value="Execute Lu Crout"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExecCroutActionPerformed"/>
@@ -152,7 +156,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnExecDooLittle">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Select Lu DooLittle"/>
+        <Property name="text" type="java.lang.String" value="Execute Lu DooLittle"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExecDooLittleActionPerformed"/>
@@ -160,7 +164,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnExecGauss">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Select Gauss"/>
+        <Property name="text" type="java.lang.String" value="Execute Lu Gauss"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExecGaussActionPerformed"/>
@@ -178,5 +182,13 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="btnSeidel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Select Seidel"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeidelActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

@@ -37,6 +37,13 @@ public class GUI extends javax.swing.JFrame {
 
             args = tolerance + " " + maxIters;
             
+        }else if(selectedMethod.equals("seidel")){
+            file = "gaussSeidel.py";
+            String tolerance = txtTolerance.getText();
+            String maxIters = txtMaxIterations.getText();
+
+            args = tolerance + " " + maxIters;
+            
         }else if(selectedMethod.equals("crout")){
             file = "luCrout.py";
         }else if(selectedMethod.equals("lucho")){
@@ -126,10 +133,11 @@ public class GUI extends javax.swing.JFrame {
         btnExecGauss = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         output = new javax.swing.JTextArea();
+        btnSeidel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnExecCholesky.setText("Select Lu Cholesky");
+        btnExecCholesky.setText("Execute Lu Cholesky");
         btnExecCholesky.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExecCholeskyActionPerformed(evt);
@@ -158,21 +166,21 @@ public class GUI extends javax.swing.JFrame {
 
         txtMaxIterations.setEnabled(false);
 
-        btnExecCrout.setText("Select Lu Crout");
+        btnExecCrout.setText("Execute Lu Crout");
         btnExecCrout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExecCroutActionPerformed(evt);
             }
         });
 
-        btnExecDooLittle.setText("Select Lu DooLittle");
+        btnExecDooLittle.setText("Execute Lu DooLittle");
         btnExecDooLittle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExecDooLittleActionPerformed(evt);
             }
         });
 
-        btnExecGauss.setText("Select Gauss");
+        btnExecGauss.setText("Execute Lu Gauss");
         btnExecGauss.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExecGaussActionPerformed(evt);
@@ -183,6 +191,13 @@ public class GUI extends javax.swing.JFrame {
         output.setRows(5);
         jScrollPane1.setViewportView(output);
 
+        btnSeidel.setText("Select Seidel");
+        btnSeidel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeidelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,12 +207,10 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnExecCholesky)
-                            .addComponent(btnExecCrout)
-                            .addComponent(btnExecDooLittle)
-                            .addComponent(btnExecGauss)
-                            .addComponent(btnJacobi)))
-                    .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnJacobi)
+                            .addComponent(btnSeidel))
+                        .addGap(81, 81, 81))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -210,8 +223,12 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(42, 42, 42)
-                                .addComponent(btnExecute)))))
-                .addGap(27, 27, 27)
+                                .addComponent(btnExecute))
+                            .addComponent(btnExecCholesky)
+                            .addComponent(btnExecCrout)
+                            .addComponent(btnExecDooLittle)
+                            .addComponent(btnExecGauss))
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
@@ -224,13 +241,7 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnJacobi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExecCholesky)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExecCrout)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExecDooLittle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExecGauss)
+                        .addComponent(btnSeidel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -241,7 +252,15 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(btnExecute)
-                        .addGap(0, 205, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExecCholesky)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExecCrout)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnExecDooLittle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExecGauss)
+                        .addGap(0, 164, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -252,6 +271,7 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "lucho";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
+        execute();
     }//GEN-LAST:event_btnExecCholeskyActionPerformed
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
@@ -268,19 +288,28 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "crout";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
+        execute();
     }//GEN-LAST:event_btnExecCroutActionPerformed
 
     private void btnExecDooLittleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecDooLittleActionPerformed
         selectedMethod = "doolittle";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
+        execute();
     }//GEN-LAST:event_btnExecDooLittleActionPerformed
 
     private void btnExecGaussActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecGaussActionPerformed
         selectedMethod = "gauss";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
+        execute();
     }//GEN-LAST:event_btnExecGaussActionPerformed
+
+    private void btnSeidelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeidelActionPerformed
+        selectedMethod = "seidel";
+        txtTolerance.setEnabled(true);
+        txtMaxIterations.setEnabled(true);
+    }//GEN-LAST:event_btnSeidelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,6 +353,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnExecGauss;
     private javax.swing.JButton btnExecute;
     private javax.swing.JButton btnJacobi;
+    private javax.swing.JButton btnSeidel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
