@@ -34,8 +34,14 @@ def gauss (L,U,A,n):
             for j in range (k,n):
                 U[i][j] = U[i][j] - multiplier*U[k][j]
 			
-        print  "Iter: "
+        print  "Iter: ",k
         print "Multiplier: " , multiplier
+        print ("Matrix L")
+        print np.array(L)
+        print ("\n")
+        print ("Matrix U")
+        print np.array(U)
+        print ("\n")
     return L,U
 
 def progressive(Z,B,L,n):
@@ -60,8 +66,6 @@ def main():
     file=open(name)
     size=int(file.readline())
     L,U,A,B,Z,X=readMatrix(file,size)
-    print L
-    print U
     L,U=gauss(L,U,A,size)
     Z=progressive(Z,B,L,size)
     X=regressiveC(X,Z,U,size)

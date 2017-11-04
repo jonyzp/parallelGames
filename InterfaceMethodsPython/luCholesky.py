@@ -42,6 +42,14 @@ def cholesky (L,U,A,n):
             for h in range (k):
                 suma3+=L[k][h]*U[h][j]
             U[k][j]=(A[k][j]-suma3)/float(L[k][k]) 
+
+        print "Iteracion: ",k
+        print ("Matrix L")
+        print np.array(L)
+        print ("\n")
+        print ("Matrix U")
+        print np.array(U)
+        print ("\n")
     return L,U
 
 def progressive(Z,B,L,n):
