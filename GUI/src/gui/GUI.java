@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class GUI extends javax.swing.JFrame {
 
+    private String selectedMethod = "";
     /**
      * Creates new form GUI
      */
@@ -33,11 +34,9 @@ public class GUI extends javax.swing.JFrame {
             
 	    // run the Unix "ps -ef" command
             // using the Runtime exec method:
-            String ruta_args = "C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\GUI\\src\\cpp_numerical_methods\\" +file + ".exe";
-            ProcessBuilder pb = new ProcessBuilder(ruta_args);
-            pb.redirectError();
-            Process p = pb.start();
-            //Process p = Runtime.getRuntime().exec(ruta_args);
+            String ruta = "C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\InterfaceMethodsPython\\";
+            String ruta_args = "python " + ruta+file+" " + ruta + "matrix.txt "+args;
+            Process p = Runtime.getRuntime().exec(ruta_args);
             
             stdOutput = new BufferedReader(new 
                  InputStreamReader(p.getInputStream()));
@@ -85,14 +84,66 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnExecLU = new javax.swing.JButton();
+        btnExecCholesky = new javax.swing.JButton();
+        btnExecute = new javax.swing.JButton();
+        btnJacobi = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtTolerance = new javax.swing.JTextField();
+        txtMaxIterations = new javax.swing.JTextField();
+        btnExecCrout = new javax.swing.JButton();
+        btnExecDooLittle = new javax.swing.JButton();
+        btnExecGauss = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnExecLU.setText("Execute LU");
-        btnExecLU.addActionListener(new java.awt.event.ActionListener() {
+        btnExecCholesky.setText("Select Lu Cholesky");
+        btnExecCholesky.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExecLUActionPerformed(evt);
+                btnExecCholeskyActionPerformed(evt);
+            }
+        });
+
+        btnExecute.setText("Execute");
+        btnExecute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExecuteActionPerformed(evt);
+            }
+        });
+
+        btnJacobi.setText("Select Jacobi");
+        btnJacobi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJacobiActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Tolerance");
+
+        jLabel2.setText("Max Iterations");
+
+        txtTolerance.setEnabled(false);
+
+        txtMaxIterations.setEnabled(false);
+
+        btnExecCrout.setText("Select Lu Crout");
+        btnExecCrout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExecCroutActionPerformed(evt);
+            }
+        });
+
+        btnExecDooLittle.setText("Select Lu DooLittle");
+        btnExecDooLittle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExecDooLittleActionPerformed(evt);
+            }
+        });
+
+        btnExecGauss.setText("Select Gauss");
+        btnExecGauss.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExecGaussActionPerformed(evt);
             }
         });
 
@@ -101,72 +152,74 @@ public class GUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(btnExecLU)
-                .addContainerGap(725, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExecute)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtMaxIterations, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                            .addComponent(txtTolerance))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnExecCholesky)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExecCrout)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExecDooLittle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExecGauss)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(btnJacobi)
+                .addGap(262, 262, 262))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(btnExecLU)
-                .addContainerGap(415, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExecCholesky)
+                    .addComponent(btnJacobi)
+                    .addComponent(btnExecCrout)
+                    .addComponent(btnExecDooLittle)
+                    .addComponent(btnExecGauss))
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(136, 136, 136)
+                .addComponent(btnExecute)
+                .addContainerGap(187, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnExecLUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecLUActionPerformed
-        String compile = "g++ -o lu \"C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\GUI\\src\\cpp_numerical_methods\\luCholeskyIntarface.cpp\"";
-        final String dosCommand = "cmd /c g++ /s";
-        final String location = " -o luky  C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\GUI\\src\\cpp_numerical_methods\\luCholeskyIntarface.cpp";
-        try
-        {
-            final Process process = Runtime.getRuntime().exec(dosCommand + " " + location);
-            final InputStream in = process.getInputStream();
-            int ch;
-            while((ch = in.read()) != -1)
-            {
-                System.out.print((char)ch);
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        String command1 = "C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\GUI\\src\\cpp_numerical_methods\\lu.exe";
-        final String cmd = "cmd /c /s";
-        final String ubic = "C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\GUI\\src\\cpp_numerical_methods\\lu.exe";
-        try
-        {
-            final Process process = Runtime.getRuntime().exec(cmd + " " + ubic);
-            final InputStream in = process.getInputStream();
-            int ch;
-            while((ch = in.read()) != -1)
-            {
-                System.out.print((char)ch);
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        //executeCmnd(compile);
-        //executeCmnd(command1);
-        /*
-        String args="";
-        String file="";
-        //if(selectedMethod.equals("newton")){
-            file = "lucho";
-            /*String funct = txtfx.getText();
-            String deriv = txtfpx.getText();
-            String x0 = txtx0.getText();
-            String toler = txttol.getText();
-            String maxIters = txtIter.getText();
+    private void btnExecCholeskyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecCholeskyActionPerformed
+        selectedMethod = "luCho";
+        
+    }//GEN-LAST:event_btnExecCholeskyActionPerformed
+
+    private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
+        // TODO add your handling code here:
+        String file = "";
+        String args = "";
+        if(selectedMethod.equals("jacobi")){
+            file = "jacobi.py";
+            String tolerance = txtTolerance.getText();
+            String maxIters = txtMaxIterations.getText();
+
+            args = tolerance + " " + maxIters;
             
-            args = funct + " " + deriv + " " + x0 + " " + toler + " " + maxIters;
-        }*/
-        /*
+        }
         BufferedReader [] std = executeCommand(file, args);  
         String s = null;
         try{
@@ -188,8 +241,24 @@ public class GUI extends javax.swing.JFrame {
             System.out.println("exception happened - here's what I know: ");
             e.printStackTrace();
             System.exit(-1);
-        }*/
-    }//GEN-LAST:event_btnExecLUActionPerformed
+        }
+    }//GEN-LAST:event_btnExecuteActionPerformed
+
+    private void btnJacobiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJacobiActionPerformed
+        selectedMethod = "jacobi";
+    }//GEN-LAST:event_btnJacobiActionPerformed
+
+    private void btnExecCroutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecCroutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExecCroutActionPerformed
+
+    private void btnExecDooLittleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecDooLittleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExecDooLittleActionPerformed
+
+    private void btnExecGaussActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecGaussActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExecGaussActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,6 +296,15 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExecLU;
+    private javax.swing.JButton btnExecCholesky;
+    private javax.swing.JButton btnExecCrout;
+    private javax.swing.JButton btnExecDooLittle;
+    private javax.swing.JButton btnExecGauss;
+    private javax.swing.JButton btnExecute;
+    private javax.swing.JButton btnJacobi;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField txtMaxIterations;
+    private javax.swing.JTextField txtTolerance;
     // End of variables declaration//GEN-END:variables
 }

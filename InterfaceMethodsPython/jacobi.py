@@ -61,8 +61,10 @@ def main():
     size=int(file.readline())
     A,xValues,xNewValues = initializeMatrix(file,size)
     
-    tolerance=float(input( "how much tolerance? for example if you have n=10, tolerance should be 0.01 and maxIters=10000\n"  ))
-    maxIterations=float(input("how many iterations? i.e: 100\n")) 
+    #tolerance=float(input( "how much tolerance? for example if you have n=10, tolerance should be 0.01 and maxIters=10000\n"  ))
+    tolerance=float(sys.argv[2])
+    #maxIterations=float(input("how many iterations? i.e: 100\n")) 
+    maxIterations=float(sys.argv[3]) 
     success,xValues,xNewValues,A,tol,niter,error = jacobi(xValues,xNewValues,A,size, tolerance, maxIterations)
     #print success,xValues,xNewValues,A,tol,niter
     if (success):
