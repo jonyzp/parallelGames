@@ -35,6 +35,7 @@ void readMatrix( int size,string origin){
     for (int i = 0; i < size; ++i){
 		L[i] = new double[size];
     }
+
     fillMatrix(size);
     ifstream read;
     read.open(origin.c_str());
@@ -49,7 +50,7 @@ void readMatrix( int size,string origin){
     read.close();
 }
 
-void crout(int n){
+void doolittle (int n){
     double suma1,suma2,suma3;
     
     for(int k=0;k<n;++k){
@@ -57,15 +58,15 @@ void crout(int n){
         for(int m=0;m<k;++m){
             suma1+=L[k][m]*U[m][k];
         }
-        L[k][k]=A[k][k]-suma1;
-        U[k][k]=1;
+        U[k][k]=A[k][k]-suma1;
+        L[k][k]=1;
 
         for(int i=k;i<n;++i){
             suma2=0;
             for(int p=0;p<k;++p){
                 suma2+=L[i][p]*U[p][k];
             }
-            L[i][k]=(A[i][k]-suma2);
+            L[i][k]=(A[i][k]-suma2)/U[k][k];
         }
         
         for(int j=k+1;j<n;++j){
@@ -73,7 +74,7 @@ void crout(int n){
             for(int h=0;h<k;++h){
                 suma3+=L[k][h]*U[h][j];
             }
-            U[k][j]=(A[k][j]-suma3)/L[k][k];
+            U[k][j]=(A[k][j]-suma3);
          
         }
     }
@@ -114,20 +115,20 @@ void printSolution(string solutionFile, int size){
 int main(){
 	string originalFile,readingName,writingName,solutionFile;
     long long matrixSize;
-
-    clock_t start, end; 
-
+    clock_t start, end;
     originalFile="matrix5000.txt";
-    solutionFile="solutionLuCrout.txt";
+    solutionFile="solutionLuDoolittle.txt";
     ifstream f("matrix5000.txt");
-    f >> matrixSize;  
+    f >> matrixSize; 
     readMatrix(matrixSize,originalFile);
     start = clock();
-    crout(matrixSize);
+    doolittle(matrixSize);
     progressiveC(matrixSize);
     regressiveC(matrixSize);
     end = clock(); 
     printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
+   
     printSolution(solutionFile, matrixSize);
 	return 0;
 }
+

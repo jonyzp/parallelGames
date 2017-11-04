@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+#include <time.h>
 
 double **L, **U, *B, *Z, *X;
 
@@ -79,19 +80,19 @@ void printSolution(string solutionFile, int size){
 int main(){
 	string originalFile,readingName,writingName,solutionFile;
     long long matrixSize;
-    originalFile="matrix.txt";
+    clock_t start, end;
+    originalFile="matrix5000.txt";
     solutionFile="solution.txt";
-    ifstream f("matrix.txt");
+    ifstream f("matrix5000.txt");
     f >> matrixSize; 
     
     readMatrix(matrixSize,originalFile);
-    time_t start = time(0);    
+    start = clock(); 
     gaussianElimination(matrixSize);
     progressiveC(matrixSize);
     regressiveC(matrixSize);
-    time_t end = time(0);
-    double tim = difftime(end, start) * 1000.0;
-    printf("%.30g\n", tim);
+    end = clock(); 
+    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
     printSolution(solutionFile, matrixSize);
 	return 0;
 }

@@ -1,10 +1,9 @@
 #include <bits/stdc++.h>
 #include <math.h>
+#include <time.h>
 using namespace std;
 
 double **L, **U, *B, *Z, *X, **A;
-
-
 
 void fillMatrix( int size){
     for (int i = 0; i <size; ++i){
@@ -21,7 +20,7 @@ void fillMatrix( int size){
 
 
 void readMatrix( int size,string origin){
-    B = new double[size];
+	B = new double[size];
     U = new double *[size];
     A= new double *[size];
     for (int i = 0; i < size; ++i){
@@ -31,13 +30,11 @@ void readMatrix( int size,string origin){
     for (int i = 0; i < size; ++i){
         A[i] = new double [size];
     }
-
     L = new double*[size];
     
     for (int i = 0; i < size; ++i){
-        L[i] = new double[size];
+		L[i] = new double[size];
     }
-
     fillMatrix(size);
     ifstream read;
     read.open(origin.c_str());
@@ -52,8 +49,7 @@ void readMatrix( int size,string origin){
     read.close();
 }
 
-
-void cholesky(int n){
+void crout(int n){
     double suma1,suma2,suma3;
     
     for(int k=0;k<n;++k){
@@ -61,15 +57,15 @@ void cholesky(int n){
         for(int m=0;m<k;++m){
             suma1+=L[k][m]*U[m][k];
         }
-        L[k][k]=sqrt(A[k][k]-suma1);
-        U[k][k]=L[k][k];
+        L[k][k]=A[k][k]-suma1;
+        U[k][k]=1;
 
         for(int i=k;i<n;++i){
             suma2=0;
             for(int p=0;p<k;++p){
                 suma2+=L[i][p]*U[p][k];
             }
-            L[i][k]=(A[i][k]-suma2)/(double)U[k][k];
+            L[i][k]=(A[i][k]-suma2);
         }
         
         for(int j=k+1;j<n;++j){
@@ -77,10 +73,9 @@ void cholesky(int n){
             for(int h=0;h<k;++h){
                 suma3+=L[k][h]*U[h][j];
             }
-            U[k][j]=(A[k][j]-suma3)/(double)L[k][k];
+            U[k][j]=(A[k][j]-suma3)/L[k][k];
          
         }
-
     }
 }
 
@@ -112,7 +107,6 @@ void printSolution(string solutionFile, int size){
     for (int i = 0; i <size; ++i){
         write << X[i] << endl;
     }
-    
 
     write.close();
 }
@@ -120,18 +114,20 @@ void printSolution(string solutionFile, int size){
 int main(){
 	string originalFile,readingName,writingName,solutionFile;
     long long matrixSize;
-    originalFile="matrix.txt";
-    solutionFile="solutionCholesky.txt";
-    ifstream f("matrix.txt");
-    f >> matrixSize; 
-    time_t start     = time(0);
+
+    clock_t start, end; 
+
+    originalFile="matrix10000.txt";
+    solutionFile="solutionLuCrout.txt";
+    ifstream f("matrix10000.txt");
+    f >> matrixSize;  
     readMatrix(matrixSize,originalFile);
-    cholesky(matrixSize);
+    start = clock();
+    crout(matrixSize);
     progressiveC(matrixSize);
     regressiveC(matrixSize);
-    time_t end = time(0);
-    double tim = difftime(end, start) * 1000.0;
-    printf("%.30g\n", tim);
+    end = clock(); 
+    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
     printSolution(solutionFile, matrixSize);
 	return 0;
 }

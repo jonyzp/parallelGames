@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <time.h>
 
 using namespace std;
 
@@ -77,10 +78,11 @@ int main(){
     std::ios::sync_with_stdio(false);
     string matrixInputFile, outputFile;
     long long matrixSize, maxIterations;
+    clock_t start, end;
     double tolerance;
     bool success;
 
-    matrixInputFile = "matrix.txt";
+    matrixInputFile = "matrix5000.txt";
     outputFile = "sol.txt";
 
     matrixSize = initializeMatrix(matrixInputFile);
@@ -88,17 +90,22 @@ int main(){
     xValues.assign(matrixSize, 0);
     xNewValues.assign(matrixSize, 0);
 
-    cout << "how much tolerance? for example if you have n=10, tolerance should be 0.01 and maxIters=10000" << endl;
-    cin >> tolerance;
-    cout << "how many iterations? i.e: 100" << endl;
-    cin >> maxIterations;
+    //cout << "how much tolerance? for example if you have n=10, tolerance should be 0.01 and maxIters=10000" << endl;
+    //cin >> tolerance;
+    //cout << "how many iterations? i.e: 100" << endl;
+    //cin >> maxIterations;
 
+    tolerance=0.000001;
+    maxIterations=10000;   
+    start = clock(); 
     success = jacobi(matrixSize, tolerance, maxIterations);
+    end = clock(); 
+    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
     
     if (success)
         writeSolution(outputFile);
     else
         cout << "could not reach the solutions in " << maxIterations << " iterations" << endl;
-        
+        writeSolution(outputFile);
     return 0;
 }

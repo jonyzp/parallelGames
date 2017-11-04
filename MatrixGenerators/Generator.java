@@ -36,11 +36,11 @@ public class Generator {
                 for (int j = 0; j < size; ++j){
                     if (i==j) printVal = (int)actual.get(actual.size()-1);
                     else printVal = (int)actual.get(j);
-                    System.out.printf("%d ",printVal);
+                    //System.out.printf("%d ",printVal);
                     bVal += (j+1) * printVal;
                     out.write(String.valueOf(printVal+" "));
                 }
-                System.out.println(bVal);
+                //System.out.println(bVal);
                 out.write(String.valueOf(bVal+"\n"));
             }
             out.close();
@@ -54,8 +54,8 @@ public class Generator {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         g=new Generator();
-        int range = 2;
-        int size = 1000;
+        int range = 9;
+        int size = 4;
         g.matrixGenerator(size,range);
 
     }
