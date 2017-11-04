@@ -8,69 +8,73 @@
 
 using namespace std;
 int i,j,k,n,row,column;
-const int tam=10001;
-double m[tam][tam],aux, X[tam];
+double multi,**m,*X;
 
-int main(){
+void readMatrix(){
+  ifstream f("matrix.txt");
+  f >> n;
 
-ifstream f("matrix.txt");
-f >> n;
-
-for (i = 0; i < n; i++){
-  for (j = 0; j < n; j++){
-      f >> m[i][j];
+  m= new double *[n];
+  for (i = 0; i < n; i++) {
+        m[i] = new double[n+1];
   }
-  f >> m[i][n];
+
+  X= new double [n];
+
+  for (i = 0; i < n; i++){
+    for (j = 0; j <= n; j++){
+      f >> m[i][j];
+    }
+  }
+  /**for (i = 0; i < n; i++){
+    for (j = 0; j <= n; j++){
+      cout << m[i][j] <<"\t";
+    }
+    cout << endl;
+  }
+  */
 }
 
-time_t start = time(0);
-#pragma omp parallel for private( k,i,j,aux)
-for(k=0; k<n; ++k){
-    for(i=k+1; i<n; ++i){
-      aux = m[i][k]/m[k][k];
+void gaussElimination(){
+  for ( k= 0; k < n-1; ++k)
+  {
+    #pragma omp parallel for private( i,j,multi)
+    for ( i = k+1; i < n; ++i)
+    {
+      multi= m[i][k]/m[k][k];
       m[i][k] =0;
-      for(j=k+1; j<=n; ++j){
-        m[i][j] = double(m[i][j] - aux*m[k][j]);
+      for (int j = k+1; j< n+1; ++j)
+      {
+        m[i][j] = double(m[i][j]- multi* m[k][j]);
       }
     }
   }
-#pragma omp parallel for
-for(int i=n-1; i>=0; --i){
-  double sum = 0;
-  for(int p=i+1; p<n; ++p){
-    sum += m[i][p]*X[p];
-  }
-  X[i]=(m[i][n]-sum)/m[i][i];
 }
 
+void regressiveSubstitution(){
+  for(int i=n-1; i>=0; --i){
+    double sum = 0;
+    for(int p=i; p<n; ++p){
+      sum += m[i][p]*X[p];
+    }
+    X[i]=(m[i][n]-sum)/m[i][i];
+  }  
+}
+
+void printResults(){
+  std::cout<<"The value of the unknowns is : ";
+  for(i=1;i<=n;i++){
+    std::cout<<"\nX"<<i<<" = "<<X[i-1]<<"\n";
+  }
+}
+
+int main(){
+readMatrix();
+time_t start = time(0);
+gaussElimination();
 time_t end = time(0);
 double tim = difftime(end, start) * 1000.0;
-
-/*
-cout<<"The identity matrix is";
-cout<<"\n\n";
-for(i=0;i<n;i++){
-  for(j=0;j<n+1;j++){
-    cout<<m[i][j]<<"\t";
-  }
-  cout<<"\n\n";
-}
-
-
-cout<<"\n";
-
-cout<<"The identity matrix is";
-cout<<"\n\n";
-for(i=1;i<=n;i++){
-  for(j=1;j<=n;j++){
-    cout<<m[i][j]<<"\t";
-  }
-  cout<<"\n\n";
-}
-*/
-cout<<"The value of unknowns is : ";
-for(i=1;i<=n;i++){
-  cout<<"\nX "<<i<<" = "<<X[i]<<"\n";
-}
+regressiveSubstitution();
+printResults();
 cout << "el tiempo que se tardo en encontrar la solucion fue: " << tim<<endl;
 }
