@@ -18,7 +18,7 @@ def initializeMatrix(file,size):
             cont+=1
     return A,xValues
 
-def sIteration(xValues,A,size):
+def sIteration(xValues,A,size,r):
     disp = 0
     for i in range (size):
         suma = 0
@@ -31,15 +31,17 @@ def sIteration(xValues,A,size):
 
         var = A[i][size]
         xNewValues = (var - suma)/aii
+        xNewValues= r*xNewValues+(1-r)*xValues[i]
+
         disp = max(disp, abs(xNewValues- xValues[i]))
         xValues[i]=xNewValues
     return disp,xValues
 
-def gaussS(xValues,A,size,tol,niter):
+def gaussS(xValues,A,size,tol,niter,r):
     disp = tol+1
     cont = 0
     while (disp > tol and cont < niter):
-        disp,xNewValues = sIteration(xValues,A,size)
+        disp,xNewValues = sIteration(xValues,A,size,r)
         print "Iter:",cont
         cont+=1
         print "X vector:",np.array(xNewValues)
@@ -65,7 +67,8 @@ def main():
     tolerance=float(sys.argv[2])
     #maxIterations=float(input("how many iterations? i.e: 100\n"))
     maxIterations=float(sys.argv[3])
-    success,xNewValues,A,tol,niter,error = gaussS(xValues,A,size, tolerance, maxIterations)
+    relaja= float(sys.argv[5])
+    success,xNewValues,A,tol,niter,error = gaussS(xValues,A,size, tolerance, maxIterations,relaja)
     #print success,xValues,xNewValues,A,tol,niter
     if (success):
         print ("Matrix A")
