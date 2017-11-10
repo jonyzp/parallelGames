@@ -1,0 +1,70 @@
+If you are in this section is because you need help.
+
+The equations in this program are like the next example:
+
+Normal function=
+cos(x^2)+ sqrt(x^3)
+
+Program syntax=
+cos(x**2)+math.sqrt(x**3)
+
+These expressions are the most common:
+
+Expression	= 	program expression
+
+exp				= 	e
+seno			= 	sin
+coseno			=	cos
+^				=	**
+square root		= 	mat.sqrt()
+ln				= 	log
+
+If you need other expression you can visit the following link:
+
+https://docs.python.org/2/library/math.html or to look for "syntax functions for python".
+
+
+This program enable some options when you make click in every button.
+
+If you want to execute newton method, you put the function f(x), the derivate of this function (f'(x)), X0 which is a initial value, a tolerance (tol) and a maximum of iterations (max iters).
+
+For example:
+
+f(x)= x+2
+f'(x)=1
+X0=-3
+Tol= 0.0001 (with dot)
+Max iters = 100
+
+If you want to execute bisection or secant method, you put the function f(x), X0 which is a initial value, X1 that is other initial value, a tolerance (tol) and a maximum of iterations (max iters).
+
+Where [x0,x1] interval should be the root.
+
+For example:
+
+f(x)= x+2
+X0=-3
+X1=1
+Tol= 0.0001 (with dot)
+Max iters = 100
+
+If you want to execute fixed point method, you put the function f(x), g(x) that is another function, X0 which is a initial value,  a tolerance (tol) and a maximum of iterations (max iters).
+
+For example:
+
+f(x)= x+2
+g(x)= x**2
+X0=-3
+Tol= 0.0001 (with dot)
+Max iters = 100
+
+If you want to execute multiple roots method, you put the function f(x), the derivate of this function (f'(x)), the second derivate of this function f''(x), X0 which is a initial value, a tolerance (tol) and a maximum of iterations (max iters).
+
+For example:
+
+f(x)= x**2+2
+f'(x)=2x
+f''(x)= 2
+X0=-3
+Tol= 0.0001 (with dot)
+Max iters = 100
