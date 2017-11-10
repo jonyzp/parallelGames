@@ -1,0 +1,24 @@
+If you are in this section is because you need help.
+
+You can generate random dominant diagonal matrix with the button generate matrix and you need to put the lenght of the matrix. But you can create a file called matrix.txt and the same folder when files .py are.
+
+The shape of the matrix is like the following example:
+
+5
+8 2 1 2 1 28
+2 8 2 1 1 33
+2 1 8 1 2 42
+2 1 2 9 2 56
+2 1 2 2 9 63
+
+Where, the first line is the lenght and the others are the matrix Ab.
+
+Is you want to execute Jacobi or Seidel method you need to put a tolerance, maximum of iterations and the initial values.
+
+For example: Tolerance = 0.0001 (With dot), max interations= 1000 and initial values = [1,2,3,4] the lenght of this array is the same that matrix, separates with comma and whit '[',']'.
+
+Is you want to execute Relaxed Jacobi or Seidel method you need to put a tolerance, maximum of iterations, the initial values and a landa.
+
+For example: Tolerance = 0.0001 (With dot), max interations= 1000, initial values = [1,2,3,4] the lenght of this array is the same that matrix, separates with comma and whit '[',']' and a landa= 1.25 (with dot).
+
+If you want to execute LU, LU with Cholesky, LU with Crout, LU with DooLittle, LU with Gauss, Gauss with pivoting parcial or total or Gaussian elimination simple, you only need to press the button.
