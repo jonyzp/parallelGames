@@ -64,6 +64,10 @@ public class GUI extends javax.swing.JFrame {
 
             args = tolerance + " " + maxIters + " "+initial+" "+landa;
             
+        }else if(selectedMethod.equals("matrix")){
+            file = "luCrout.py";
+            String order = matrixOrderText.getText();
+            args = order;
         }else if(selectedMethod.equals("crout")){
             file = "luCrout.py";
         }else if(selectedMethod.equals("lucho")){
@@ -148,6 +152,7 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         btnExecCholesky = new javax.swing.JButton();
         btnExecute = new javax.swing.JButton();
         btnJacobi = new javax.swing.JButton();
@@ -171,6 +176,12 @@ public class GUI extends javax.swing.JFrame {
         gaussPP = new javax.swing.JButton();
         gaussPT = new javax.swing.JButton();
         gaussSimple = new javax.swing.JButton();
+        helpButton = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        matrixOrderText = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+
+        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -239,14 +250,14 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel4.setText("i.e [1,2,3]");
 
-        btnJacobiRel.setText("Select Jacobi Relajado");
+        btnJacobiRel.setText("Select Relaxed Jacobi");
         btnJacobiRel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnJacobiRelActionPerformed(evt);
             }
         });
 
-        btnSeidelRela.setText("Select Seidel Relajado ");
+        btnSeidelRela.setText("Select Relaxed Seidel");
         btnSeidelRela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeidelRelaActionPerformed(evt);
@@ -276,6 +287,22 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        helpButton.setText("Help");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Generate Matrix");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Matrix Order");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -283,50 +310,64 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnJacobi)
-                    .addComponent(btnSeidel)
-                    .addComponent(btnExecCrout)
-                    .addComponent(btnJacobiRel, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSeidelRela, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(27, 27, 27)
-                                .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel5))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel4)
-                                    .addComponent(initialValuesText)
-                                    .addComponent(landaText, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(matrixOrderText, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(btnExecute))
-                    .addComponent(btnExecDooLittle)
-                    .addComponent(gaussPP)
-                    .addComponent(gaussPT)
-                    .addComponent(btnExecCholesky)
-                    .addComponent(gaussSimple)
-                    .addComponent(btnExecGauss1))
-                .addGap(230, 230, 230)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnJacobi)
+                            .addComponent(btnSeidel)
+                            .addComponent(btnJacobiRel, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSeidelRela, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel5))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel4)
+                                            .addComponent(initialValuesText)
+                                            .addComponent(landaText, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(btnExecute))
+                            .addComponent(gaussPP)
+                            .addComponent(gaussPT)
+                            .addComponent(btnExecCrout)
+                            .addComponent(btnExecDooLittle)
+                            .addComponent(btnExecCholesky)
+                            .addComponent(gaussSimple)
+                            .addComponent(helpButton)
+                            .addComponent(btnExecGauss1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnJacobi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -353,13 +394,13 @@ public class GUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(landaText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(42, 42, 42)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnExecute)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(gaussPP)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(gaussPT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(gaussSimple)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExecCholesky)
@@ -368,8 +409,15 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnExecDooLittle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExecGauss1)))
-                .addContainerGap())
+                        .addComponent(btnExecGauss1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(matrixOrderText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addComponent(helpButton))))
         );
 
         pack();
@@ -379,6 +427,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "lucho";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
+        landaText.setEditable(false);
+        initialValuesText.setEditable(false);
         execute();
     }//GEN-LAST:event_btnExecCholeskyActionPerformed
 
@@ -390,12 +440,15 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "jacobi";
         txtTolerance.setEnabled(true);
         txtMaxIterations.setEnabled(true);
+        initialValuesText.setEditable(true);
     }//GEN-LAST:event_btnJacobiActionPerformed
 
     private void btnExecCroutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecCroutActionPerformed
         selectedMethod = "crout";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
+        landaText.setEditable(false);
+        initialValuesText.setEditable(false);
         execute();
     }//GEN-LAST:event_btnExecCroutActionPerformed
 
@@ -403,6 +456,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "doolittle";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
+        landaText.setEditable(false);
+        initialValuesText.setEditable(false);
         execute();
     }//GEN-LAST:event_btnExecDooLittleActionPerformed
 
@@ -410,6 +465,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "gauss";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
+        landaText.setEditable(false);
+        initialValuesText.setEditable(false);
         execute();
     }//GEN-LAST:event_btnExecGauss1ActionPerformed
 
@@ -417,6 +474,7 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "seidel";
         txtTolerance.setEnabled(true);
         txtMaxIterations.setEnabled(true);
+        initialValuesText.setEditable(true);
     }//GEN-LAST:event_btnSeidelActionPerformed
 
     private void btnJacobiRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJacobiRelActionPerformed
@@ -425,6 +483,7 @@ public class GUI extends javax.swing.JFrame {
         txtTolerance.setEnabled(true);
         txtMaxIterations.setEnabled(true);
         landaText.setEditable(true);
+        initialValuesText.setEditable(true);
     }//GEN-LAST:event_btnJacobiRelActionPerformed
 
     private void btnSeidelRelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeidelRelaActionPerformed
@@ -433,6 +492,7 @@ public class GUI extends javax.swing.JFrame {
         txtTolerance.setEnabled(true);
         txtMaxIterations.setEnabled(true);
         landaText.setEditable(true);
+        initialValuesText.setEditable(true);
     }//GEN-LAST:event_btnSeidelRelaActionPerformed
 
     private void gaussPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gaussPPActionPerformed
@@ -440,6 +500,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "gaussPartial";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
+        landaText.setEditable(false);
+        initialValuesText.setEditable(false);
         execute();
     }//GEN-LAST:event_gaussPPActionPerformed
 
@@ -448,6 +510,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "gaussTotal";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
+        landaText.setEditable(false);
+        initialValuesText.setEditable(false);
         execute();
     }//GEN-LAST:event_gaussPTActionPerformed
 
@@ -456,8 +520,25 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "gaussSimple";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
+        landaText.setEditable(false);
+        initialValuesText.setEditable(false);
         execute();
     }//GEN-LAST:event_gaussSimpleActionPerformed
+
+    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+        // TODO add your handling code here:
+        selectedMethod = "help";
+        txtTolerance.setEnabled(false);
+        txtMaxIterations.setEnabled(false);
+        landaText.setEditable(false);
+        initialValuesText.setEditable(false);
+    }//GEN-LAST:event_helpButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        selectedMethod = "matrix";
+        execute();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -507,14 +588,19 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton gaussPP;
     private javax.swing.JButton gaussPT;
     private javax.swing.JButton gaussSimple;
+    private javax.swing.JButton helpButton;
     private javax.swing.JTextField initialValuesText;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField landaText;
+    private javax.swing.JTextField matrixOrderText;
     private javax.swing.JTextArea output;
     private javax.swing.JTextField txtMaxIterations;
     private javax.swing.JTextField txtTolerance;
