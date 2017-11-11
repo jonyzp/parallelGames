@@ -33,7 +33,7 @@ public class GUI extends javax.swing.JFrame {
             
 	    // run the Unix "ps -ef" command
             // using the Runtime exec method:
-            String ruta_args = "python C:\\Users\\JONATHAN\\Documents\\Universidad\\Universidad_2017-2\\Analisis_Numerico\\Investigacion_en_computacion_en_paralelo\\RepoProyectoFinal\\parallelGames\\"+file+" "+args;
+            String ruta_args = "python /Users/marcossierra/Dropbox/Eafit/Semestre6/AnalisisNumerico/Proyecto/parallelGames/AddedValue/"+file+" "+args;
             Process p = Runtime.getRuntime().exec(ruta_args);
             
             stdOutput = new BufferedReader(new 
@@ -53,6 +53,88 @@ public class GUI extends javax.swing.JFrame {
         BufferedReader[] std = {stdOutput, stdError};
         
         return std;
+    }
+    
+    public void execute(){
+         String args="";
+        String file="";
+        if(selectedMethod.equals("newton")){
+            file = "newton.py";
+            String funct = txtfx.getText();
+            String deriv = txtfpx.getText();
+            String x0 = txtx0.getText();
+            String toler = txttol.getText();
+            String maxIters = txtIter.getText();
+
+            args = funct + " " + deriv + " " + x0 + " " + toler + " " + maxIters;
+        }else if(selectedMethod.equals("biseccion")){
+            file = "biseccion.py";
+            String funct = txtfx.getText();
+            String x0 = txtx0.getText();
+            String x1 = txtx1.getText();
+            String toler = txttol.getText();
+            String maxIters = txtIter.getText();
+
+            args = funct + " " + x0 + " " + x1 + " " + toler + " " + maxIters;
+            
+        }else if(selectedMethod.equals("secante")){
+            file = "secante.py";
+            String funct = txtfx.getText();
+            String x0 = txtx0.getText();
+            String x1 = txtx1.getText();
+            String toler = txttol.getText();
+            String maxIters = txtIter.getText();
+
+            args = funct + " " + x0 + " " + x1 + " " + toler + " " + maxIters;
+            
+        }else if(selectedMethod.equals("puntoFijo")){
+            file = "puntoFijo.py";
+            String funct = txtfx.getText();
+            String functg = txtgx.getText();
+            String x0 = txtx0.getText();
+            String toler = txttol.getText();
+            String maxIters = txtIter.getText();
+
+            args = funct + " " + functg + " " + x0 + " " + toler + " " + maxIters;
+            
+        }else if(selectedMethod.equals("raicesMultiples")){
+            file = "AddedValue/raicesMultiples.py";
+            String funct = txtfx.getText();
+            String deriv = txtfpx.getText();
+            String deriv2 = txtfppx.getText();
+            String x0 = txtx0.getText();
+            String toler = txttol.getText();
+            String maxIters = txtIter.getText();
+
+            args = funct + " " + deriv +" "+deriv2 + " " + x0 + " " + toler + " " + maxIters;
+            
+        }else if(selectedMethod.equals("help")){
+            file = "helpReader.py";
+        }
+        BufferedReader [] std = executeCommand(file, args);  
+        String s = null;
+        try{
+            boolean error=false;
+            // read any errors from the attempted command
+            while ((s = std[1].readLine()) != null) {
+                JOptionPane.showMessageDialog(this,s,"Error",JOptionPane.ERROR_MESSAGE);
+                error=true;
+            }  
+            // read the output from the command
+            if(!error){
+                //System.out.println("Here is the standard output of the command:\n");
+                outputPane.append("Here is the standard output of the command:\n");
+                while ((s = std[0].readLine()) != null) {
+                    //System.out.println(s);
+                    outputPane.append(s + "\n");
+                }
+            }
+        }
+        catch (IOException e) {
+            System.out.println("exception happened - here's what I know: ");
+            e.printStackTrace();
+            System.exit(-1);
+        }
     }
 
     /**
@@ -88,6 +170,7 @@ public class GUI extends javax.swing.JFrame {
         btnExecute = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         outputPane = new javax.swing.JTextArea();
+        helpButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -178,6 +261,13 @@ public class GUI extends javax.swing.JFrame {
         outputPane.setRows(5);
         jScrollPane1.setViewportView(outputPane);
 
+        helpButton.setText("Help");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,17 +275,6 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNewton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBisection)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSecant)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnfixpoint)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnmultroots)
-                        .addGap(0, 439, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -228,11 +307,23 @@ public class GUI extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jLabel7)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtfppx, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
+                                    .addComponent(txtfppx)))
                             .addComponent(btnExecute))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
-                .addContainerGap())
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnNewton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBisection)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSecant)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnfixpoint)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnmultroots)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
+                        .addComponent(helpButton))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +334,8 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(btnBisection)
                     .addComponent(btnSecant)
                     .addComponent(btnfixpoint)
-                    .addComponent(btnmultroots))
+                    .addComponent(btnmultroots)
+                    .addComponent(helpButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -362,84 +454,14 @@ public class GUI extends javax.swing.JFrame {
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
         // TODO add your handling code here:
-        String args="";
-        String file="";
-        if(selectedMethod.equals("newton")){
-            file = "AddedValue\\newton.py";
-            String funct = txtfx.getText();
-            String deriv = txtfpx.getText();
-            String x0 = txtx0.getText();
-            String toler = txttol.getText();
-            String maxIters = txtIter.getText();
-
-            args = funct + " " + deriv + " " + x0 + " " + toler + " " + maxIters;
-        }else if(selectedMethod.equals("biseccion")){
-            file = "AddedValue\\biseccion.py";
-            String funct = txtfx.getText();
-            String x0 = txtx0.getText();
-            String x1 = txtx1.getText();
-            String toler = txttol.getText();
-            String maxIters = txtIter.getText();
-
-            args = funct + " " + x0 + " " + x1 + " " + toler + " " + maxIters;
-            
-        }else if(selectedMethod.equals("secante")){
-            file = "AddedValue\\secante.py";
-            String funct = txtfx.getText();
-            String x0 = txtx0.getText();
-            String x1 = txtx1.getText();
-            String toler = txttol.getText();
-            String maxIters = txtIter.getText();
-
-            args = funct + " " + x0 + " " + x1 + " " + toler + " " + maxIters;
-            
-        }else if(selectedMethod.equals("puntoFijo")){
-            file = "AddedValue\\puntoFijo.py";
-            String funct = txtfx.getText();
-            String functg = txtgx.getText();
-            String x0 = txtx0.getText();
-            String toler = txttol.getText();
-            String maxIters = txtIter.getText();
-
-            args = funct + " " + functg + " " + x0 + " " + toler + " " + maxIters;
-            
-        }else if(selectedMethod.equals("raicesMultiples")){
-            file = "AddedValue\\raicesMultiples.py";
-            String funct = txtfx.getText();
-            String deriv = txtfpx.getText();
-            String deriv2 = txtfppx.getText();
-            String x0 = txtx0.getText();
-            String toler = txttol.getText();
-            String maxIters = txtIter.getText();
-
-            args = funct + " " + deriv +" "+deriv2 + " " + x0 + " " + toler + " " + maxIters;
-            
-        }
-        BufferedReader [] std = executeCommand(file, args);  
-        String s = null;
-        try{
-            boolean error=false;
-            // read any errors from the attempted command
-            while ((s = std[1].readLine()) != null) {
-                JOptionPane.showMessageDialog(this,s,"Error",JOptionPane.ERROR_MESSAGE);
-                error=true;
-            }  
-            // read the output from the command
-            if(!error){
-                //System.out.println("Here is the standard output of the command:\n");
-                outputPane.append("Here is the standard output of the command:\n");
-                while ((s = std[0].readLine()) != null) {
-                    //System.out.println(s);
-                    outputPane.append(s + "\n");
-                }
-            }
-        }
-        catch (IOException e) {
-            System.out.println("exception happened - here's what I know: ");
-            e.printStackTrace();
-            System.exit(-1);
-        }
+       execute();
     }//GEN-LAST:event_btnExecuteActionPerformed
+
+    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+        // TODO add your handling code here:
+        selectedMethod = "help";
+        execute();
+    }//GEN-LAST:event_helpButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -483,6 +505,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnSecant;
     private javax.swing.JButton btnfixpoint;
     private javax.swing.JButton btnmultroots;
+    private javax.swing.JButton helpButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

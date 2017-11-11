@@ -316,7 +316,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel8.setText("i.e 0.001");
 
-        jLabel9.setText("1.0");
+        jLabel9.setText("i.e 1.0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

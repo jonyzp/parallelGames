@@ -1,3 +1,4 @@
+
 If you are in this section is because you need help.
 
 The equations in this program are like the next example:
@@ -10,19 +11,17 @@ cos(x**2)+math.sqrt(x**3)
 
 These expressions are the most common:
 
-Expression	= 	program expression
-
-exp				= 	e
-seno			= 	sin
-coseno			=	cos
-^				=	**
-square root		= 	mat.sqrt()
-ln				= 	log
+Expression ----- program expression
+exp	       -----         	e
+seno       -----         sin
+coseno     -----         cos
+^	         -----         **
+square root-----         mat.sqrt()
+ln         -----         log
 
 If you need other expression you can visit the following link:
 
 https://docs.python.org/2/library/math.html or to look for "syntax functions for python".
-
 
 This program enable some options when you make click in every button.
 
