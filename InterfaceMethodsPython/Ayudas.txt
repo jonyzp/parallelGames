@@ -21,6 +21,6 @@ For example: Tolerance = 0.0001 (With dot), max interations= 1000 and initial va
 
 If you want to execute Relaxed Jacobi or Seidel method you need to put a tolerance, maximum of iterations, the initial values and a lambda.
 
-For example: Tolerance = 0.0001 (With dot), max interations= 1000, initial values = [1,2,3,4] the size of this array is the same that the order of the matrix, separates with comma and whit '[',']' and a lambda = 1.25 (with dot).
+For example: Tolerance = 0.0001 (With dot), max interations= 1000, initial values = [1,2,3,4] the size of this array is the same that the order of the matrix, separates with comma and whit '[',']' and a lambda = 0.25 (with dot).
 
 If you want to execute LU, LU with Cholesky, LU with Crout, LU with DooLittle, LU with Gauss, Gauss with partial or total pivoting or simple Gaussian elimination, you only need to press the button where is the name of the method.
