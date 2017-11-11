@@ -10,7 +10,7 @@ def readMatrix(file,size):
         fileMio=file.readline().replace("\n","").split(" ")
         linea=fileMio[0:size+1]
         for j in linea:
-            Ab[i][cont]=float(j) 
+            Ab[i][cont]=float(j)
             cont+=1
         #valorB=fileMio[len(fileMio)-1]
         #B[i]=float(valorB)
@@ -34,7 +34,7 @@ def pivoteo_parcial(Ab,k,n):
             mayor = abs(Ab[s][k])
             fila_mayor = s
     if mayor == 0:
-        return "El sistema no tiene solucion unica"
+        return "The system doesn't have unique solution"
     else:
         if fila_mayor != k:
             Ab = IntercambieFilas(Ab,fila_mayor,k)
@@ -49,7 +49,7 @@ def eliminacion_gaussiana_pivoteo(Ab,n):
     marcas = np.arange(n)
     #Ab = matrixAum(A,b,n)
     for k in range(0,n-1):
-        print "Iter ",k
+        print "Iter ",k,"\n"
         Ab = pivoteo_parcial(Ab,k,n)
         for i in range(k+1,n):
             multiplicador = Ab[i][k]/float(Ab[k][k])
@@ -57,10 +57,10 @@ def eliminacion_gaussiana_pivoteo(Ab,n):
             for j in range(k,n+1):
                 Ab[i][j] = Ab[i][j] - multiplicador * Ab[k][j]
 
-        print "Matrix  \n",np.array(Ab)
+        print "\n","Matrix  \n",np.array(Ab),"\n"
 
     return Ab
-    
+
 
 def sustitucion_regresiva(Ab,n):
     x= np.zeros(n)
@@ -80,7 +80,7 @@ def main():
     size=int(file.readline())
     Ab=readMatrix(file,size)
     matrix = eliminacion_gaussiana_pivoteo(Ab,size)
-    print matrix
+    print "\n","The final matrix is:\n ", matrix, "\n"
     x = sustitucion_regresiva(matrix,size)
     for i, x in enumerate(x):
         print "x{0} = {1}  ".format(i+1,x)

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.swing.JOptionPane;
+//import gui.Generator;
 
 /**
  *
@@ -64,10 +65,6 @@ public class GUI extends javax.swing.JFrame {
 
             args = tolerance + " " + maxIters + " "+initial+" "+landa;
             
-        }else if(selectedMethod.equals("matrix")){
-            file = "luCrout.py";
-            String order = matrixOrderText.getText();
-            args = order;
         }else if(selectedMethod.equals("crout")){
             file = "luCrout.py";
         }else if(selectedMethod.equals("lucho")){
@@ -82,6 +79,7 @@ public class GUI extends javax.swing.JFrame {
             file = "gaussPivoteoTotal.py";
         }else if(selectedMethod.equals("gaussSimple")){
             file = "elimGaussNormal.py";
+            
         }
         BufferedReader [] std = executeCommand(file, args);  
         String s = null;
@@ -180,6 +178,9 @@ public class GUI extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         matrixOrderText = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -248,6 +249,8 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel3.setText("Initial Values");
 
+        initialValuesText.setEnabled(false);
+
         jLabel4.setText("i.e [1,2,3]");
 
         btnJacobiRel.setText("Select Relaxed Jacobi");
@@ -264,7 +267,9 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Landa");
+        jLabel5.setText("Lambda");
+
+        landaText.setEnabled(false);
 
         gaussPP.setText("Execute Gauss Partial");
         gaussPP.addActionListener(new java.awt.event.ActionListener() {
@@ -303,6 +308,12 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel6.setText("Matrix Order");
 
+        jLabel7.setText("i.e 100");
+
+        jLabel8.setText("i.e 0.001");
+
+        jLabel9.setText("1.0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -310,55 +321,57 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel6)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(matrixOrderText, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSeidel)
+                    .addComponent(btnJacobiRel, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSeidelRela, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel7))
+                                    .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(27, 27, 27)
+                                .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
                                 .addGap(18, 18, 18)
-                                .addComponent(matrixOrderText, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnJacobi)
-                            .addComponent(btnSeidel)
-                            .addComponent(btnJacobiRel, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSeidelRela, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel5))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel4)
-                                            .addComponent(initialValuesText)
-                                            .addComponent(landaText, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(btnExecute))
-                            .addComponent(gaussPP)
-                            .addComponent(gaussPT)
-                            .addComponent(btnExecCrout)
-                            .addComponent(btnExecDooLittle)
-                            .addComponent(btnExecCholesky)
-                            .addComponent(gaussSimple)
-                            .addComponent(helpButton)
-                            .addComponent(btnExecGauss1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                                    .addComponent(jLabel4)
+                                    .addComponent(initialValuesText)
+                                    .addComponent(landaText, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(btnExecute))
+                    .addComponent(gaussPP)
+                    .addComponent(gaussPT)
+                    .addComponent(btnExecCrout)
+                    .addComponent(btnExecDooLittle)
+                    .addComponent(btnExecCholesky)
+                    .addComponent(gaussSimple)
+                    .addComponent(btnExecGauss1)
+                    .addComponent(btnJacobi))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(helpButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,55 +382,63 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnJacobi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSeidel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnJacobiRel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSeidelRela)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(initialValuesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addGap(4, 4, 4)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(landaText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExecute)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(gaussPP)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(gaussPT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(gaussSimple)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExecCholesky)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExecCrout)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExecDooLittle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExecGauss1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(matrixOrderText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                        .addComponent(helpButton))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(helpButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnJacobi)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSeidel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnJacobiRel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSeidelRela)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtMaxIterations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)
+                                .addGap(2, 2, 2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(initialValuesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(landaText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExecute)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(gaussPP)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(gaussPT)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(gaussSimple)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExecCholesky)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExecCrout)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnExecDooLittle)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExecGauss1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(matrixOrderText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6))))
+                        .addGap(0, 17, Short.MAX_VALUE))))
         );
 
         pack();
@@ -440,15 +461,17 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "jacobi";
         txtTolerance.setEnabled(true);
         txtMaxIterations.setEnabled(true);
-        initialValuesText.setEditable(true);
+        landaText.setEnabled(false);
+        initialValuesText.setEnabled(true);
+        
     }//GEN-LAST:event_btnJacobiActionPerformed
 
     private void btnExecCroutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecCroutActionPerformed
         selectedMethod = "crout";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
-        landaText.setEditable(false);
-        initialValuesText.setEditable(false);
+        landaText.setEnabled(false);
+        initialValuesText.setEnabled(false);
         execute();
     }//GEN-LAST:event_btnExecCroutActionPerformed
 
@@ -456,8 +479,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "doolittle";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
-        landaText.setEditable(false);
-        initialValuesText.setEditable(false);
+        landaText.setEnabled(false);
+        initialValuesText.setEnabled(false);
         execute();
     }//GEN-LAST:event_btnExecDooLittleActionPerformed
 
@@ -465,8 +488,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "gauss";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
-        landaText.setEditable(false);
-        initialValuesText.setEditable(false);
+        landaText.setEnabled(false);
+        initialValuesText.setEnabled(false);
         execute();
     }//GEN-LAST:event_btnExecGauss1ActionPerformed
 
@@ -475,6 +498,8 @@ public class GUI extends javax.swing.JFrame {
         txtTolerance.setEnabled(true);
         txtMaxIterations.setEnabled(true);
         initialValuesText.setEditable(true);
+        landaText.setEnabled(false);
+        initialValuesText.setEnabled(true);
     }//GEN-LAST:event_btnSeidelActionPerformed
 
     private void btnJacobiRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJacobiRelActionPerformed
@@ -482,8 +507,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "jacobiRela";
         txtTolerance.setEnabled(true);
         txtMaxIterations.setEnabled(true);
-        landaText.setEditable(true);
-        initialValuesText.setEditable(true);
+        landaText.setEnabled(true);
+        initialValuesText.setEnabled(true);
     }//GEN-LAST:event_btnJacobiRelActionPerformed
 
     private void btnSeidelRelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeidelRelaActionPerformed
@@ -491,8 +516,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "seidelRela";
         txtTolerance.setEnabled(true);
         txtMaxIterations.setEnabled(true);
-        landaText.setEditable(true);
-        initialValuesText.setEditable(true);
+        landaText.setEnabled(true);
+        initialValuesText.setEnabled(true);
     }//GEN-LAST:event_btnSeidelRelaActionPerformed
 
     private void gaussPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gaussPPActionPerformed
@@ -500,8 +525,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "gaussPartial";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
-        landaText.setEditable(false);
-        initialValuesText.setEditable(false);
+        landaText.setEnabled(false);
+        initialValuesText.setEnabled(false);
         execute();
     }//GEN-LAST:event_gaussPPActionPerformed
 
@@ -510,8 +535,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "gaussTotal";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
-        landaText.setEditable(false);
-        initialValuesText.setEditable(false);
+        landaText.setEnabled(false);
+        initialValuesText.setEnabled(false);
         execute();
     }//GEN-LAST:event_gaussPTActionPerformed
 
@@ -520,8 +545,8 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "gaussSimple";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
-        landaText.setEditable(false);
-        initialValuesText.setEditable(false);
+        landaText.setEnabled(false);
+        initialValuesText.setEnabled(false);
         execute();
     }//GEN-LAST:event_gaussSimpleActionPerformed
 
@@ -536,8 +561,11 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        selectedMethod = "matrix";
-        execute();
+        String order = matrixOrderText.getText();
+        Generator generator = new Generator();
+        int order1 = Integer.parseInt(order);
+        generator.matrixGenerator(order1, 10);
+        JOptionPane.showMessageDialog(this, "The matrix has been generated");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -598,6 +626,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField landaText;
     private javax.swing.JTextField matrixOrderText;

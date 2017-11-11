@@ -9,7 +9,7 @@ def readMatrix(file,size):
         fileMio=file.readline().replace("\n","").split(" ")
         linea=fileMio[0:size+1]
         for j in linea:
-            Ab[i][cont]=float(j) 
+            Ab[i][cont]=float(j)
             cont+=1
         #valorB=fileMio[len(fileMio)-1]
         #B[i]=float(valorB)
@@ -17,17 +17,17 @@ def readMatrix(file,size):
     return Ab
 
 
-def eliminacion(Ab,n):	
+def eliminacion(Ab,n):
 	for k in range(1,n):
-                print "Iter: ", k-1
+                print "Iter: ", k-1, "\n"
 		for i in range(k,n):
 			multiplicador = Ab[i][k-1]/float(Ab[k-1][k-1])
 			print "Multiplier: ",i," = ",  multiplicador
 			for j in range(k,n+2):
 				Ab[i][j-1] = Ab[i][j-1] - multiplicador * Ab[k-1][j-1]
 
-        	print "Matrix Ab: \n", Ab
-        
+        	print "\n","Matrix Ab: \n", Ab,"\n"
+
   	return Ab
 
 def sustitucion_regresiva(Ab,n):
@@ -49,7 +49,7 @@ def main():
     Ab=readMatrix(file,size)
     matriz = eliminacion(Ab,size)
     x = sustitucion_regresiva(matriz,size)
-    print "Final matrix: \n",matriz
+    print "\n","Final matrix: \n",matriz,"\n"
     for i, x in enumerate(x):
     	print "x{0} = {1}  ".format(i+1,x)
 
