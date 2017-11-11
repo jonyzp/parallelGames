@@ -122,6 +122,7 @@ public class GUI extends javax.swing.JFrame {
             }  
             // read the output from the command
             if(!error){
+                outputPane.setText("");
                 //System.out.println("Here is the standard output of the command:\n");
                 outputPane.append("Here is the standard output of the command:\n");
                 while ((s = std[0].readLine()) != null) {
