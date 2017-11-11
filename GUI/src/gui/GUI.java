@@ -81,6 +81,10 @@ public class GUI extends javax.swing.JFrame {
             file = "elimGaussNormal.py";
             
         }
+        else if(selectedMethod.equals("help")){
+            file = "helpReader.py";
+            
+        }
         BufferedReader [] std = executeCommand(file, args);  
         String s = null;
         try{
@@ -555,8 +559,9 @@ public class GUI extends javax.swing.JFrame {
         selectedMethod = "help";
         txtTolerance.setEnabled(false);
         txtMaxIterations.setEnabled(false);
-        landaText.setEditable(false);
-        initialValuesText.setEditable(false);
+        landaText.setEnabled(false);
+        initialValuesText.setEnabled(false);
+        execute();
     }//GEN-LAST:event_helpButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
