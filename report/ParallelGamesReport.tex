@@ -211,6 +211,9 @@ void gaussElimination(){
 \subsubsection{Analysis of the method:}
 \includegraphics[width=\linewidth]{./images/gauss.PNG}\\
 
+\includegraphics[width=\linewidth]{./images/gg.jpeg}\\
+
+
 \subsection{LU Factorization}
 
 \subsubsection{LU}
@@ -254,6 +257,8 @@ void gaussianElimination(int n){
 
 \includegraphics[width=\linewidth]{./images/lu.PNG}\\
 In this graphic we can see the result and the comparison between serial form and parallel form.
+
+\includegraphics[width=\linewidth]{./images/glu.jpeg}\\
 
 
 \subsubsection{LU Cholesky}
@@ -312,7 +317,8 @@ void cholesky(int n){
 \includegraphics[width=\linewidth]{./images/cholesky.PNG}\\
 In this graphic we can see the result and the comparison between serial form and parallel form.
 
-\newpage
+\includegraphics[width=\linewidth]{./images/gluch.jpeg}\\
+
 
 \subsubsection{LU Crout}
 
@@ -372,7 +378,9 @@ void crout(int n){
 \includegraphics[width=\linewidth]{./images/crout.PNG}\\
 In this graphic we can see the result and the comparison between serial form and parallel form.
 
-\newpage
+
+\includegraphics[width=\linewidth]{./images/glucr.jpeg}\\
+
 
 \subsubsection{LU Dolittle}
 
@@ -427,7 +435,9 @@ void doolittle (int n){
 \includegraphics[width=\linewidth]{./images/dolittle.PNG}\\
 In this graphic we can see the result and the comparison between serial form and parallel form.
 
-\newpage
+
+\includegraphics[width=\linewidth]{./images/glud.jpeg}\\
+
 
 \subsection{Jacobi}
 
@@ -518,13 +528,15 @@ bool jacobi(long long matrixSize, double tol, long long niter){
 
 \subsubsection{Analysis of the method:}
 
+
+\includegraphics[width=\linewidth]{./images/gj.jpeg}\\
+
 In order to analyse the speed of the method we did some tests with different matrix. So, in the following graphic we can see the performance of jacobi in parallel.
 
 \includegraphics[width=\linewidth]{./images/jacobi.PNG}\\
 
 We can observe that the method increase too much its time of execution when we augment the size of the matrix. Later, we are going to compare this one with another methods, analysing their caracteristics.
 
-\newpage
 
 \subsection{Gauss Seidel}
 
@@ -571,6 +583,10 @@ bool gaussS(long long mSize, double tol, long long niter){
 
 \end{lstlisting}
 
+\subsubsection{Analysis of the method:}
+
+
+\includegraphics[width=\linewidth]{./images/gs.jpeg}\\
 
 \subsection{Blocks}
 
