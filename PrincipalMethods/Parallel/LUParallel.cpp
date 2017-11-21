@@ -2,13 +2,14 @@
 #include <time.h>
 #include <fstream>
 using namespace std;
-
+//these are the matrices and vectors that are use to find the solution.
 double **L, **U, *B, *Z, *X;
 double multiplier;
 int i,j,k;
 
+//this method read the matrix and recive the size of the matriz and the path of where is located the .txt file
 void readMatrix( int size,string origin){
-	B = new double[size];
+    B = new double[size];
     U = new double *[size];
 
     for (int i = 0; i < size; ++i){
@@ -33,12 +34,13 @@ void readMatrix( int size,string origin){
 
     read.close();
 }
-
+// implementation of the gaussian elimination which is use to get L and U matrices
 void gaussianElimination(int n){
 
 	for(k=0; k<n; ++k){
 		L[k][k]=1;
-        #pragma omp parallel for private( i,j,multiplier)
+		//this line help the computer to parallelize the next for statement and define i,j and multiplier as private variables for each node 
+        	#pragma omp parallel for private( i,j,multiplier)
 		for(i=k+1; i<n; ++i){
 			multiplier = U[i][k]/U[k][k];
 			L[i][k]=multiplier;
@@ -48,7 +50,7 @@ void gaussianElimination(int n){
 		}
 	}
 }
-
+//this do the progresive sustitution to get the final solution
 void progressiveC(int n){
 	Z = new double[n];
 	for(int i=0; i<n; i++){
@@ -59,7 +61,7 @@ void progressiveC(int n){
 		Z[i]=(B[i]-sum)/L[i][i];
 	}
 }
-
+//this do the regresive sustitution to find the solution
 void regressiveC(int n){
 	X = new double[n];
 	for(int i=n-1; i>=0; --i){
@@ -70,7 +72,7 @@ void regressiveC(int n){
 		X[i]=(Z[i]-sum)/U[i][i];
 	}
 }
-
+//print the solution into a txt file
 void printSolution(string solutionFile, int size){
     ofstream write;
     write.open(solutionFile.c_str(),ios::trunc);
