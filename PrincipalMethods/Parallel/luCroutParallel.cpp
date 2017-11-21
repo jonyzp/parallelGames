@@ -18,7 +18,6 @@ void fillMatrix( int size){
     }
 }
 
-
 void readMatrix( int size,string origin){
 	B = new double[size];
     U = new double *[size];
@@ -26,12 +25,11 @@ void readMatrix( int size,string origin){
     for (int i = 0; i < size; ++i){
         U[i] = new double [size];
     }
-
     for (int i = 0; i < size; ++i){
         A[i] = new double [size];
     }
     L = new double*[size];
-    
+
     for (int i = 0; i < size; ++i){
 		L[i] = new double[size];
     }
@@ -45,7 +43,7 @@ void readMatrix( int size,string origin){
         }
         read >> B[i];
     }
-    
+
     read.close();
 }
 
@@ -75,7 +73,7 @@ void crout(int n){
                 suma3+=L[k][h]*U[h][j];
             }
             U[k][j]=(A[k][j]-suma3)/L[k][k];
-         
+
         }
     }
 }
@@ -116,19 +114,19 @@ int main(){
 	string originalFile,readingName,writingName,solutionFile;
     long long matrixSize;
 
-    clock_t start, end; 
+    clock_t start, end;
 
     originalFile="./matrices/matrix1000.txt";
-    solutionFile="solutionLuCrout.txt";
+    solutionFile="solution.txt";
     ifstream f("./matrices/matrix1000.txt");
-    f >> matrixSize;  
+    f >> matrixSize;
     readMatrix(matrixSize,originalFile);
     start = clock();
     crout(matrixSize);
     progressiveC(matrixSize);
     regressiveC(matrixSize);
-    end = clock(); 
-    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
+    end = clock();
+    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0));
     printSolution(solutionFile, matrixSize);
 	return 0;
 }

@@ -7,24 +7,16 @@ using namespace std;
 int main()
 {
     int i,j,k,n;
-    float A[101][101],multiplier,x[101];
+    float A[2001][2001],multiplier,x[2001];
     ifstream read;
     read.open("matrix.txt");
     read >> n;
-    
+
     for(i=1; i<=n; i++)
         for(j=1; j<=(n+1); j++)
             read >> A[i][j];
-    /*
-    cout<<"The identity matrix is :";
-	cout<<"\n\n";
-	for(i=1;i<=n;i++){
-	  for(j=1;j<=(n+1);j++){
-	    cout<<A[i][j]<<"\t";
-	  }
-	  cout<<"\n\n";
-	}*/
-    //Buscar los elementos de la matriz diagonal
+
+    //Find the elements of the diagonal matrix
     for(j=1; j<=n; j++)
     {
         for(i=1; i<=n; i++)

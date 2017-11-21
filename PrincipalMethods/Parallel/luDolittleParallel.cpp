@@ -31,7 +31,7 @@ void readMatrix( int size,string origin){
         A[i] = new double [size];
     }
     L = new double*[size];
-    
+
     for (int i = 0; i < size; ++i){
 		L[i] = new double[size];
     }
@@ -46,7 +46,7 @@ void readMatrix( int size,string origin){
         }
         read >> B[i];
     }
-    
+
     read.close();
 }
 
@@ -76,7 +76,7 @@ void doolittle (int n){
                 suma3+=L[k][h]*U[h][j];
             }
             U[k][j]=(A[k][j]-suma3);
-         
+
         }
     }
 }
@@ -118,18 +118,17 @@ int main(){
     long long matrixSize;
     clock_t start, end;
     originalFile="./matrices/matrix1000.txt";
-    solutionFile="solutionLuDoolittle.txt";
+    solutionFile="solution.txt";
     ifstream f("./matrices/matrix1000.txt");
-    f >> matrixSize; 
+    f >> matrixSize;
     readMatrix(matrixSize,originalFile);
     start = clock();
     doolittle(matrixSize);
     progressiveC(matrixSize);
     regressiveC(matrixSize);
-    end = clock(); 
-    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
-   
+    end = clock();
+    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0));
+
     printSolution(solutionFile, matrixSize);
 	return 0;
 }
-

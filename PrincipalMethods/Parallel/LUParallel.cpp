@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-using namespace std;
 #include <time.h>
 #include <fstream>
+using namespace std;
 
 double **L, **U, *B, *Z, *X;
 double multiplier;
@@ -10,13 +10,13 @@ int i,j,k;
 void readMatrix( int size,string origin){
 	B = new double[size];
     U = new double *[size];
-    
+
     for (int i = 0; i < size; ++i){
         U[i] = new double [size];
     }
 
     L = new double*[size];
-    
+
     for (int i = 0; i < size; ++i){
 		L[i] = new double[size];
     }
@@ -30,15 +30,15 @@ void readMatrix( int size,string origin){
         }
         read >> B[i];
     }
-    
+
     read.close();
 }
 
 void gaussianElimination(int n){
-	
+
 	for(k=0; k<n; ++k){
 		L[k][k]=1;
-        #pragma omp parallel for private( i,j,multiplier) 
+        #pragma omp parallel for private( i,j,multiplier)
 		for(i=k+1; i<n; ++i){
 			multiplier = U[i][k]/U[k][k];
 			L[i][k]=multiplier;
@@ -48,7 +48,6 @@ void gaussianElimination(int n){
 		}
 	}
 }
-
 
 void progressiveC(int n){
 	Z = new double[n];
@@ -88,15 +87,15 @@ int main(){
     originalFile="matrix10.txt";
     solutionFile="solution.txt";
     ifstream f("matrix10.txt");
-    f >> matrixSize; 
-    
+    f >> matrixSize;
+
     readMatrix(matrixSize,originalFile);
-    start = clock(); 
+    start = clock();
     gaussianElimination(matrixSize);
     progressiveC(matrixSize);
     regressiveC(matrixSize);
-    end = clock(); 
-    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
+    end = clock();
+    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0));
     printSolution(solutionFile, matrixSize);
 	return 0;
 }

@@ -81,9 +81,9 @@ int main(){
 	string originalFile,readingName,writingName,solutionFile;
     long long matrixSize;
     clock_t start, end;
-    originalFile="matrix5000.txt";
+    originalFile="matrix.txt";
     solutionFile="solution.txt";
-    ifstream f("matrix5000.txt");
+    ifstream f("matrix.txt");
     f >> matrixSize; 
     
     readMatrix(matrixSize,originalFile);

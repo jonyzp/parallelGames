@@ -34,7 +34,7 @@ void readMatrix( int size,string origin){
     }
 
     L = new double*[size];
-    
+
     for (int i = 0; i < size; ++i){
         L[i] = new double[size];
     }
@@ -49,14 +49,14 @@ void readMatrix( int size,string origin){
         }
         read >> B[i];
     }
-    
+
     read.close();
 }
 
 
 void cholesky(int n){
     double suma1,suma2,suma3;
-    
+
     for(int k=0;k<n;++k){
         suma1=0;
         for(int m=0;m<k;++m){
@@ -72,14 +72,14 @@ void cholesky(int n){
             }
             L[i][k]=(A[i][k]-suma2)/(double)U[k][k];
         }
-        
+
         for(int j=k+1;j<n;++j){
             suma3=0;
             for(int h=0;h<k;++h){
                 suma3+=L[k][h]*U[h][j];
             }
             U[k][j]=(A[k][j]-suma3)/(double)L[k][k];
-         
+
         }
 
     }
@@ -113,7 +113,7 @@ void printSolution(string solutionFile, int size){
     for (int i = 0; i <size; ++i){
         write << X[i] << endl;
     }
-    
+
 
     write.close();
 }
@@ -122,10 +122,10 @@ int main(){
 	string originalFile,readingName,writingName,solutionFile;
     long long matrixSize;
     clock_t start, end;
-    originalFile="matrix5000.txt";
-    solutionFile="solutionCholesky.txt";
-    ifstream f("matrix5000.txt");
-    f >> matrixSize; 
+    originalFile="matrix.txt";
+    solutionFile="solution.txt";
+    ifstream f("matrix.txt");
+    f >> matrixSize;
 
 
     readMatrix(matrixSize,originalFile);
@@ -133,8 +133,8 @@ int main(){
     cholesky(matrixSize);
     progressiveC(matrixSize);
     regressiveC(matrixSize);
-    end = clock(); 
-    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
+    end = clock();
+    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0));
     printSolution(solutionFile, matrixSize);
 	return 0;
 }

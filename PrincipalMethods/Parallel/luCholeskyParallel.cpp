@@ -34,7 +34,7 @@ void readMatrix( int size,string origin){
     }
 
     L = new double*[size];
-    
+
     for (int i = 0; i < size; ++i){
         L[i] = new double[size];
     }
@@ -49,14 +49,14 @@ void readMatrix( int size,string origin){
         }
         read >> B[i];
     }
-    
+
     read.close();
 }
 
 
 void cholesky(int n){
     double suma1,suma2,suma3;
-    
+
     for(k=0;k<n;++k){
         suma1=0;
         #pragma omp parallel for private( m) shared(suma1,k,L,U)
@@ -76,12 +76,11 @@ void cholesky(int n){
         #pragma omp parallel for private( j,suma3,h) shared(k,L,U)
         for( j=k+1;j<n;++j){
             suma3=0;
-            //#pragma omp parallel for default(shared) reduction(+:suma3)
             for(h=0;h<k;++h){
                 suma3+=L[k][h]*U[h][j];
             }
             U[k][j]=(A[k][j]-suma3)/(double)L[k][k];
-         
+
         }
 
     }
@@ -115,7 +114,7 @@ void printSolution(string solutionFile, int size){
     for (int i = 0; i <size; ++i){
         write << X[i] << endl;
     }
-    
+
 
     write.close();
 }
@@ -125,9 +124,9 @@ int main(){
     long long matrixSize;
     clock_t start, end;
     originalFile="./matrices/matrix10000.txt";
-    solutionFile="solutionCholesky.txt";
+    solutionFile="solution.txt";
     ifstream f("./matrices/matrix10000.txt");
-    f >> matrixSize; 
+    f >> matrixSize;
 
 
     readMatrix(matrixSize,originalFile);
@@ -135,8 +134,8 @@ int main(){
     cholesky(matrixSize);
     progressiveC(matrixSize);
     regressiveC(matrixSize);
-    end = clock(); 
-    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
+    end = clock();
+    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0));
     printSolution(solutionFile, matrixSize);
 	return 0;
 }

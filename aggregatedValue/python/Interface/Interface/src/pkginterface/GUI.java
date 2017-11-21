@@ -33,7 +33,7 @@ public class GUI extends javax.swing.JFrame {
             
 	    // run the Unix "ps -ef" command
             // using the Runtime exec method:
-            String ruta_args = "python /Users/marcossierra/Dropbox/Eafit/Semestre6/AnalisisNumerico/Proyecto/parallelGames/AddedValue/"+file+" "+args;
+            String ruta_args = "python /Users/marcossierra/Dropbox/Eafit/Semestre6/AnalisisNumerico/Proyecto/parallelGames/aggregatedValue/python/"+file+" "+args;
             Process p = Runtime.getRuntime().exec(ruta_args);
             
             stdOutput = new BufferedReader(new 

@@ -20,7 +20,6 @@ int initializeMatrix(string origin){
     for (int i = 0; i < size; ++i){
         matrix[i] = new double [size+1];
     }
-
     for (int i = 0; i < size; ++i){
         for (int j = 0; j < size + 1; ++j){
             read >> matrix[i][j];
@@ -30,7 +29,7 @@ int initializeMatrix(string origin){
 }
 
 
-double newJacobi(int matrixSize){
+double iteraciones(int matrixSize){
     double suma, disp,var, aii;
     int i,j;
     disp = 0;
@@ -54,20 +53,17 @@ double newJacobi(int matrixSize){
 bool jacobi(long long matrixSize, double tol, long long niter){
     double disp = tol+1;
     int cont = 0;
-
     while (disp > tol && cont < niter){
         for (int i = 0; i < matrixSize; ++i){
             xValues[i] = xNewValues[i];
         }
-        disp = newJacobi(matrixSize);
+        disp = iteraciones(matrixSize);
         cont++;
     }
-
     if (disp <= tol)
         return true;
     return false;
 }
-
 
 void writeSolution(string outputFile){
     ofstream write;
@@ -94,18 +90,13 @@ int main(){
     xValues.assign(matrixSize, 0);
     xNewValues.assign(matrixSize, 0);
 
-    //cout << "how much tolerance? for example if you have n=10, tolerance should be 0.01 and maxIters=10000" << endl;
-    //cin >> tolerance;
-    //cout << "how many iterations? i.e: 100" << endl;
-    //cin >> maxIterations;
-
     tolerance=0.000001;
-    maxIterations=10000;   
-    start = clock(); 
+    maxIterations=10000;
+    start = clock();
     success = jacobi(matrixSize, tolerance, maxIterations);
-    end = clock(); 
-    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
-    
+    end = clock();
+    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0));
+
     if (success)
         writeSolution(outputFile);
     else

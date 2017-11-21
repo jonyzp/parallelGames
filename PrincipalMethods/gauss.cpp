@@ -1,5 +1,3 @@
-  //GAUSS METHOD
-
 #include<iostream>
 #include<stdio.h>
 #include<curses.h>
@@ -25,24 +23,14 @@ void readMatrix(){
       f >> m[i][j];
     }
   }
-  /**for (i = 0; i < n; i++){
-    for (j = 0; j <= n; j++){
-      cout << m[i][j] <<"\t";
-    }
-    cout << endl;
-  }
-  */
 }
 
 void gaussElimination(){
-  for ( k= 0; k < n-1; ++k)
-  {
-    for ( i = k+1; i < n; ++i)
-    {
+  for ( k= 0; k < n-1; ++k){
+    for ( i = k+1; i < n; ++i){
       multi= m[i][k]/m[k][k];
       m[i][k] =0;
-      for (int j = k+1; j< n+1; ++j)
-      {
+      for (int j = k+1; j< n+1; ++j){
         m[i][j] = double(m[i][j]- multi* m[k][j]);
       }
     }
@@ -56,7 +44,7 @@ void regressiveSubstitution(){
       sum += m[i][p]*X[p];
     }
     X[i]=(m[i][n]-sum)/m[i][i];
-  }  
+  }
 }
 
 void printResults(){
@@ -65,17 +53,16 @@ void printResults(){
     std::cout<<"\nX"<<i<<" = "<<X[i-1]<<"\n";
   }
 }
+
 int main(){
+  readMatrix();
+  time_t start = time(0);
+  gaussElimination();
+  time_t end = time(0);
+  double tim = difftime(end, start) * 1000.0;
+  regressiveSubstitution();
+  printResults();
 
-readMatrix();
-
-time_t start = time(0);
-gaussElimination();
-time_t end = time(0);
-double tim = difftime(end, start) * 1000.0;
-regressiveSubstitution();
-printResults();
-
-cout << "el tiempo que se tardo en encontrar la solucion fue: " << tim<<endl;
+cout << "It took this time to get the solution: " << tim<<endl;
 return 1;
 }

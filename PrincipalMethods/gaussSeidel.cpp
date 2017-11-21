@@ -11,8 +11,8 @@ vector<double> independents;
 double**matrix;
 
 double sIteration(int mSize){
-    double suma, disp,var, aii, newXValue;
-    disp = 0;
+    double suma, error,var, aii, newXValue;
+    error = 0;
     for (int i = 0; i < mSize;++i){
         suma = 0;
         for (int j = 0; j < mSize;++j){
@@ -22,25 +22,24 @@ double sIteration(int mSize){
             else
                 aii = var;
         }
-
         var = matrix[i][mSize];
         newXValue =  (var - suma)/aii;
-        disp = max(disp, abs(newXValue - independents[i]));
+        error = max(error, abs(newXValue - independents[i]));
         independents[i] = newXValue;
     }
-    return disp;
+    return error;
 }
 
 bool gaussS(long long mSize, double tol, long long niter){
-    double disp = tol+1;
+    double error = tol+1;
     int cont = 0;
 
-    while (disp > tol && cont < niter){
-        disp = sIteration(mSize);
+    while (error > tol && cont < niter){
+        error = sIteration(mSize);
         cont++;
     }
 
-    if (disp <= tol)
+    if (error <= tol)
         return true;
     return false;
 }
@@ -61,7 +60,7 @@ int main(){
     clock_t start, end;
     double tolerance;
     bool res;
-    std::ifstream f("matrix5000.txt");
+    std::ifstream f("matrix.txt");
       f >> mSize;
       matrix = new double *[mSize];
       for (int i = 0; i < mSize; ++i){
@@ -73,32 +72,25 @@ int main(){
               f >> matrix[i][j];
           }
       }
-    //cout << "What's the name of the file where you want the solution be?" << endl;
-    //cin >> solutionFile;
-      solutionFile="sol.txt";
-    independents.assign(mSize, 0);
 
-    //cout << "How much tolerance?" << endl;
-    //cin >> tolerance;
-    //cout << "How many iterations?" << endl;
-    //cin >> iterations;
+    solutionFile="solution.txt";
+    independents.assign(mSize, 0);
 
 
     tolerance=0.000001;
-    iterations=10000;   
-    start = clock(); 
-   
+    iterations=10000;
+    start = clock();
+
     res = gaussS(mSize, tolerance, iterations);
 
-    end = clock(); 
-    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
-    
+    end = clock();
+    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0));
+
     if (res)
         writeSolution(solutionFile);
     else
         cout << "could not reach the solutions in " << iterations << " iterations" << endl;
     writeSolution(solutionFile);
-    
+
     return 0;
 }
-
