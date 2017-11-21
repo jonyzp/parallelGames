@@ -7,6 +7,7 @@ using namespace std;
 int i,j,k,n;
 double multi,**m,*X;
 
+//Here we read the matrix that we're going to solve
 void readMatrix(){
   ifstream f("matrix.txt");
   f >> n;
@@ -25,6 +26,7 @@ void readMatrix(){
   }
 }
 
+//Here we do the method
 void gaussElimination(){
   for ( k= 0; k < n-1; ++k){
     for ( i = k+1; i < n; ++i){
@@ -37,6 +39,7 @@ void gaussElimination(){
   }
 }
 
+//Here we do the regresive substitution to find the unknowns
 void regressiveSubstitution(){
   for(int i=n-1; i>=0; --i){
     double sum = 0;
@@ -47,6 +50,7 @@ void regressiveSubstitution(){
   }
 }
 
+//Here we print the value of the unknowns
 void printResults(){
   std::cout<<"The value of the unknowns is : ";
   for(i=1;i<=n;i++){
@@ -54,6 +58,7 @@ void printResults(){
   }
 }
 
+//This is the main method that ejecuted all the methods of the class
 int main(){
   readMatrix();
   time_t start = time(0);

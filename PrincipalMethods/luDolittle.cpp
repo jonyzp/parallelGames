@@ -5,6 +5,7 @@ using namespace std;
 
 double **L, **U, *B, *Z, *X, **A;
 
+//With this method we initialize two matrixes (L and U) whit a specific size
 void fillMatrix( int size){
     for (int i = 0; i <size; ++i){
         for (int j =0 ; j<size; ++j){
@@ -18,7 +19,7 @@ void fillMatrix( int size){
     }
 }
 
-
+//Here we read the matrix and we get the value of U and L matrixes
 void readMatrix( int size,string origin){
 	B = new double[size];
     U = new double *[size];
@@ -50,6 +51,7 @@ void readMatrix( int size,string origin){
     read.close();
 }
 
+//Here we try to solve the matrix with the method doolittle
 void doolittle (int n){
     double suma1,suma2,suma3;
 
@@ -80,6 +82,7 @@ void doolittle (int n){
     }
 }
 
+//Here we find the value of the Z's and then with this we find the value of the unknowns
 void progressiveC(int n){
 	Z = new double[n];
 	for(int i=0; i<n; i++){
@@ -91,6 +94,7 @@ void progressiveC(int n){
 	}
 }
 
+//Here we find the value of the unknowns
 void regressiveC(int n){
 	X = new double[n];
 	for(int i=n-1; i>=0; --i){
@@ -102,6 +106,7 @@ void regressiveC(int n){
 	}
 }
 
+//Here we put the solution in a file
 void printSolution(string solutionFile, int size){
     ofstream write;
     write.open(solutionFile.c_str(),ios::trunc);
@@ -112,22 +117,22 @@ void printSolution(string solutionFile, int size){
     write.close();
 }
 
+//This is the main method that ejecuted all the methods of the class
 int main(){
 	string originalFile,readingName,writingName,solutionFile;
-    long long matrixSize;
-    clock_t start, end;
-    originalFile="matrix.txt";
-    solutionFile="solution.txt";
-    ifstream f("matrix.txt");
-    f >> matrixSize;
-    readMatrix(matrixSize,originalFile);
-    start = clock();
-    doolittle(matrixSize);
-    progressiveC(matrixSize);
-    regressiveC(matrixSize);
-    end = clock();
-    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0));
-
-    printSolution(solutionFile, matrixSize);
+  long long matrixSize;
+  clock_t start, end;
+  originalFile="matrix.txt";
+  solutionFile="solution.txt";
+  ifstream f("matrix.txt");
+  f >> matrixSize;
+  readMatrix(matrixSize,originalFile);
+  start = clock();
+  doolittle(matrixSize);
+  progressiveC(matrixSize);
+  regressiveC(matrixSize);
+  end = clock();
+  printf("The time was: %.30g\n", (double)( (end - start) / 1000.0));
+  printSolution(solutionFile, matrixSize);
 	return 0;
 }

@@ -10,8 +10,10 @@ using namespace std;
 vector<double> independents;
 double**matrix;
 
+//Here we find the aproximation of the solution, we calculate the newXValue,
+//the error and the independents.
 double sIteration(int mSize){
-    double suma, error,var, aii, newXValue;
+    double suma, error, var, aii, newXValue;
     error = 0;
     for (int i = 0; i < mSize;++i){
         suma = 0;
@@ -30,6 +32,7 @@ double sIteration(int mSize){
     return error;
 }
 
+//Here we know if we found the solution of the matrix or if we have to stop the process
 bool gaussS(long long mSize, double tol, long long niter){
     double error = tol+1;
     int cont = 0;
@@ -44,6 +47,7 @@ bool gaussS(long long mSize, double tol, long long niter){
     return false;
 }
 
+//Here we write the solution of the system
 void writeSolution(string solutionFile){
     ofstream write;
     write.open(solutionFile.c_str(),ios::trunc);
@@ -53,6 +57,8 @@ void writeSolution(string solutionFile){
     write.close();
 }
 
+//This is the main method that ejecuted all the methods of the class
+//And here we put the tolerance and iterations of the method
 int main(){
     std::ios::sync_with_stdio(false);
     string originalFile,readingName,writingName, solutionFile;

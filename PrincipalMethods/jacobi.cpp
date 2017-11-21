@@ -29,10 +29,11 @@ int initializeMatrix(string origin){
     return size;
 }
 
-
-double newJacobi(int matrixSize){
-    double suma, disp,var, aii;
-    disp = 0;
+//Here we find the aproximation of the solution, we calculate the newXValue,
+//the error and the independents.
+double jacobiIterations(int matrixSize){
+    double suma, error,var, aii;
+    error = 0;
     for (int i = 0; i < matrixSize;++i){
         suma = 0;
         for (int j = 0; j < matrixSize;++j){
@@ -44,27 +45,28 @@ double newJacobi(int matrixSize){
         }
         var = matrix[i][matrixSize];
         xNewValues[i] = (var - suma)/aii;
-        disp = max(disp, abs(xNewValues[i]- xValues[i]));
+        error = max(error, abs(xNewValues[i]- xValues[i]));
     }
-    return disp;
+    return error;
 }
 
+//Here we know if we found the solution of the matrix or if we have to stop the process
 bool jacobi(long long matrixSize, double tol, long long niter){
-    double disp = tol+1;
+    double error = tol+1;
     int cont = 0;
 
-    while (disp > tol && cont < niter){
+    while (error > tol && cont < niter){
         for (int i = 0; i < matrixSize; ++i)xValues[i] = xNewValues[i];
-        disp = newJacobi(matrixSize);
+        error = jacobiIterations(matrixSize);
         cont++;
     }
 
-    if (disp <= tol)
+    if (error <= tol)
         return true;
     return false;
 }
 
-
+//Here we write the solution of the system
 void writeSolution(string outputFile){
     ofstream write;
     write.open(outputFile.c_str(),ios::trunc);
@@ -74,6 +76,8 @@ void writeSolution(string outputFile){
     write.close();
 }
 
+//This is the main method that ejecuted all the methods of the class
+//And here we put the tolerance and iterations of the method
 int main(){
     std::ios::sync_with_stdio(false);
     string matrixInputFile, outputFile;

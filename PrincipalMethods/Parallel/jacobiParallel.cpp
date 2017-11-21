@@ -11,6 +11,7 @@ using namespace std;
 vector<double> xValues,xNewValues;
 double**matrix;
 
+//Here we get the matrix that we're going to solve
 int initializeMatrix(string origin){
     ifstream read;
     read.open(origin.c_str());
@@ -28,12 +29,13 @@ int initializeMatrix(string origin){
     return size;
 }
 
-
-double iteraciones(int matrixSize){
-    double suma, disp,var, aii;
+//Here is the main part of the ejecution, and here we get the aproximation of the matrix's solution.
+double jacobiIterations(int matrixSize){
+    double suma, error,var, aii;
     int i,j;
-    disp = 0;
-    #pragma omp parallel for shared(xValues, xNewValues, matrix, matrixSize, disp) private(i, j, var, suma, aii)
+    error = 0;
+    //With this line we parallelize the method sharing some variables to the CPU's and putting private others.
+    #pragma omp parallel for shared(xValues, xNewValues, matrix, matrixSize, error) private(i, j, var, suma, aii)
     for (i = 0; i < matrixSize;++i){
         suma = 0;
         for (j = 0; j < matrixSize;++j){
@@ -45,26 +47,28 @@ double iteraciones(int matrixSize){
         }
         var = matrix[i][matrixSize];
         xNewValues[i] = (var - suma)/aii;
-        disp = max(disp, abs(xNewValues[i]- xValues[i]));
+        error = max(error, abs(xNewValues[i]- xValues[i]));
     }
-    return disp;
+    return error;
 }
 
+//Here we look for the error of the method to know if the aproximation is good or if we're going to stop
 bool jacobi(long long matrixSize, double tol, long long niter){
-    double disp = tol+1;
+    double error = tol+1;
     int cont = 0;
-    while (disp > tol && cont < niter){
+    while (error > tol && cont < niter){
         for (int i = 0; i < matrixSize; ++i){
             xValues[i] = xNewValues[i];
         }
-        disp = iteraciones(matrixSize);
+        error = jacobiIterations(matrixSize);
         cont++;
     }
-    if (disp <= tol)
+    if (error <= tol)
         return true;
     return false;
 }
 
+//Here we write a solution of the method in a file
 void writeSolution(string outputFile){
     ofstream write;
     write.open(outputFile.c_str(),ios::trunc);
@@ -74,6 +78,7 @@ void writeSolution(string outputFile){
     write.close();
 }
 
+//This is the main method that ejecuted all the methods of the class
 int main(){
     std::ios::sync_with_stdio(false);
     string matrixInputFile, outputFile;

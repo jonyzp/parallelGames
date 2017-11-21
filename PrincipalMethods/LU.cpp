@@ -4,18 +4,18 @@ using namespace std;
 
 double **L, **U, *B, *Z, *X;
 
+//Here we read the matrix and we get the value of U and L matrixes 
 void readMatrix( int size,string origin){
 	B = new double[size];
     U = new double *[size];
-    
-    for (int i = 0; i < size; ++i){
-        U[i] = new double [size];
-    }
 
-    L = new double*[size];
-    
     for (int i = 0; i < size; ++i){
-		L[i] = new double[size];
+      U[i] = new double [size];
+    }
+		L = new double*[size];
+
+    for (int i = 0; i < size; ++i){
+			L[i] = new double[size];
     }
 
     ifstream read;
@@ -27,10 +27,11 @@ void readMatrix( int size,string origin){
         }
         read >> B[i];
     }
-    
+
     read.close();
 }
 
+//Here we do the gaussian elimination method and get the solution
 void gaussianElimination(int n){
 	double multiplier;
 	for(int k=0; k<n; ++k){
@@ -45,7 +46,7 @@ void gaussianElimination(int n){
 	}
 }
 
-
+//Here we find the value of the Z's and then with this we find the value of the unknowns
 void progressiveC(int n){
 	Z = new double[n];
 	for(int i=0; i<n; i++){
@@ -57,6 +58,7 @@ void progressiveC(int n){
 	}
 }
 
+//Here we find the value of the unknowns
 void regressiveC(int n){
 	X = new double[n];
 	for(int i=n-1; i>=0; --i){
@@ -68,6 +70,7 @@ void regressiveC(int n){
 	}
 }
 
+//Here we put the solution in a file
 void printSolution(string solutionFile, int size){
     ofstream write;
     write.open(solutionFile.c_str(),ios::trunc);
@@ -77,6 +80,7 @@ void printSolution(string solutionFile, int size){
     write.close();
 }
 
+//This is the main method that ejecuted all the methods of the class
 int main(){
 	string originalFile,readingName,writingName,solutionFile;
     long long matrixSize;
@@ -84,15 +88,15 @@ int main(){
     originalFile="matrix.txt";
     solutionFile="solution.txt";
     ifstream f("matrix.txt");
-    f >> matrixSize; 
-    
+    f >> matrixSize;
+
     readMatrix(matrixSize,originalFile);
-    start = clock(); 
+    start = clock();
     gaussianElimination(matrixSize);
     progressiveC(matrixSize);
     regressiveC(matrixSize);
-    end = clock(); 
-    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0)); 
+    end = clock();
+    printf("The time was: %.30g\n", (double)( (end - start) / 1000.0));
     printSolution(solutionFile, matrixSize);
 	return 0;
 }
