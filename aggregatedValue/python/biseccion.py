@@ -2,6 +2,7 @@ from errorPrinter import eprint
 from evaluator import f
 import sys
 
+#In this method we calculate if the interval has a root
 def biseccion(Xinferior, Xsuperior, tolerancia, iteraciones):
 
     if(tolerancia <0 or iteraciones < 0) :
@@ -22,6 +23,8 @@ def biseccion(Xinferior, Xsuperior, tolerancia, iteraciones):
             print "-------------||------------||-------------||--------------||------------"
             print "  Xinferior     Xsuperior       Xmedio       f(Xmedio)        Error  "
             print Xinferior ,"  |   ",  Xsuperior,"  |  " ,  xm,"  |   ",    funcionXm,"  |   ",   errorAbs,"  |   "
+
+            #If the stop parameters haven't been broken here we can calculate where is the root
             while(errorAbs > tolerancia and funcionXm !=0 and contador <= iteraciones) :
                 if(funcionXinferior * funcionXm < 0) :
                     Xsuperior = xm
@@ -36,6 +39,7 @@ def biseccion(Xinferior, Xsuperior, tolerancia, iteraciones):
                 contador = contador + 1
                 print Xinferior ,"  |   ",  Xsuperior,"  |  " ,  xm,"  |   ",    funcionXm,"  |   ",   errorAbs,"  |   "
 
+            #Here we show the root or the aproximation if is not an exact root between the interval
             if(funcionXm == 0):
                 print ("Xm es raiz.","%.50f"%xm)
             elif(errorAbs < tolerancia):

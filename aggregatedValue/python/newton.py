@@ -2,6 +2,7 @@ from evaluator import f
 import sys
 from errorPrinter import eprint
 
+#In this method we calculate if the given point is a root
 def newton(x0,tol,iteration):
     if(iteration <0 or tol<=0):
         eprint("the iterations and tolerance must be positive")
@@ -14,6 +15,8 @@ def newton(x0,tol,iteration):
         print "-----------||------------||-------------||--------------"
         print "  X              f(x)          f'(x)            Error  "
         print x0 ,"  |   ",  fx,"  |  " ,  dfx,"  |   ",    error,"  |   "
+
+        #If the stop parameters haven't been broken here we can calculate where is the root
         while(error > tol and fx != 0 and dfx != 0 and cont <iteration):
             x1 = x0 - fx/dfx
             fx = f(x1,funcion)
@@ -22,6 +25,8 @@ def newton(x0,tol,iteration):
             x0 = x1
             cont=cont+1
             print x0 ,"  |   ",  fx,"  |  " ,  dfx,"  |   ",    error,"  |   "
+
+        #Here we show the root or the aproximation if the given point's not a root
         if(fx == 0):
             print(x0 , "is root")
         elif(error < tol):
@@ -41,4 +46,3 @@ if len(sys.argv)==6:
     newton(x0,tol,itera)
 else:
     eprint("no se pasaron los parametros suficientes para ejecutar el metodo")
-

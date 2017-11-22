@@ -2,6 +2,7 @@ from errorPrinter import eprint
 from evaluator import f
 import sys
 
+#With this method we want to find a good interval with posible root
 def incrementalSearch(x0, delta, iter):
     if(delta==0):
         eprint("Delta no puede ser cero")
@@ -19,6 +20,7 @@ def incrementalSearch(x0, delta, iter):
         print x0 ,"  |   ",  fx0,"  |  "
         print x1 ,"  |   ",  fx1,"  |  "
 
+        #If the stop parameters haven't been broken here we can calculate the interval
         while(fx0 * fx1 > 0 and contador <= iter):
             x0 = x1
             fx0 = fx1
@@ -27,6 +29,7 @@ def incrementalSearch(x0, delta, iter):
             contador+=1
             print x1 ,"  |   ",  fx1,"  |  "
 
+        #Here we can show the interval that has a posible root
         if(fx1 == 0):
             print(x1 , " es la raiz")
         elif(fx0 * fx1 < 0):
